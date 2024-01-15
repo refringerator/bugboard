@@ -18,6 +18,7 @@ const config: StorybookConfig = {
   },
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
+      base: process.env.BASE_URL + "/storybook",
       optimizeDeps: {
         include: [
           // "@storybook/addon-a11y/preview.js",

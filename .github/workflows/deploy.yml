@@ -46,6 +46,8 @@ jobs:
 
       # Собираем Storybook
       - name: Build Storybook
+        env:
+          BASE_URL: ${{ github.event.repository.name }}
         run: npm run build-storybook
 
       # Публикуем Storybook на Github Pages добавлением папки
