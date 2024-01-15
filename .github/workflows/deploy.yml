@@ -2,7 +2,7 @@ name: Test, Lint, Build and Deploy on Github Pages
 
 on:
   push:
-    branches: ['master']
+    branches: ["master"]
 
 permissions:
   contents: write
@@ -49,14 +49,14 @@ jobs:
         run: npm run build-storybook
 
       # Публикуем Storybook на Github Pages добавлением папки
-      # - name: Deploy Storybook to Github Pages
-      #   uses: JamesIves/github-pages-deploy-action@4.2.1
-      #   with:
-      #     branch: gh-pages
-      #     folder: storybook-static
-      #     commit-message: 'Automatically publish Storybook'
-      #     target-folder: storybook
-      #     clean: false
+      - name: Deploy Storybook to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.2.1
+        with:
+          branch: gh-pages
+          folder: storybook-static
+          commit-message: "Automatically publish Storybook"
+          target-folder: storybook
+          clean: false
 
       # Останавливаем выполнение строго при неудачных тестах
       - name: Fail on failed tests
