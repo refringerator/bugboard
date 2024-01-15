@@ -15,5 +15,9 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/triple-slash-reference": "error",
+    "react/jsx-uses-vars": "off",
+    "react/jsx-uses-react": "off",
   },
 };
