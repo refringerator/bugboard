@@ -20,4 +20,5 @@ module.exports = {
     "react/jsx-uses-vars": "off",
     "react/jsx-uses-react": "off",
   },
+  extends: ["react-app"],
 };
