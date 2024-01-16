@@ -4,9 +4,9 @@ import "./App.css";
 
 const oauth_link = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
-}`;
+}&scope=public_repo`;
+//
 // &redirect_uri=${import.meta.env.VITE_REDIRECT_URI}
-// &scope=user
 
 function App() {
   const [count, setCount] = useState(0);
