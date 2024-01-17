@@ -6,9 +6,10 @@ import {
 
 import App from "./App.tsx";
 import ErrorPage from "./error-page.tsx";
+import OAuthCallback from "./routes/OAuthCallback.tsx";
 
 export const router = createBrowserRouter(
-  createRoutesFromElements(
+  createRoutesFromElements([
     <Route
       path="/"
       element={<App />}
@@ -32,6 +33,12 @@ export const router = createBrowserRouter(
         />
         <Route path="contacts/:contactId/destroy" action={destroyAction} />
       </Route> */}
-    </Route>
-  )
+    </Route>,
+    <Route
+      path="oauth-callback"
+      element={<OAuthCallback />}
+      loader={OAuthCallback.loader}
+      // action={editAction}
+    />,
+  ])
 );
