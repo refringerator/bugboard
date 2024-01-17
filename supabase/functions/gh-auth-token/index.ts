@@ -10,12 +10,18 @@
 
 // Деплой
 // https://supabase.com/docs/guides/functions/deploy
+import { corsHeaders } from '../_shared/cors.ts'
 
 console.log("Hello from GH auth!");
 
 Deno.serve(async (req) => {
+  
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+  
   const { code } = await req.json();
-
+  
   const response = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: {
@@ -40,7 +46,7 @@ Deno.serve(async (req) => {
   };
 
   return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json" },
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 });
 
