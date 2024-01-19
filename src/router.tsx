@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import App from "./App.tsx";
+import App from "./screens/App/App.tsx";
 import ErrorPage from "./error-page.tsx";
 import OAuthCallback from "./routes/OAuthCallback.tsx";
 
