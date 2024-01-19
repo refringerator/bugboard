@@ -16,14 +16,14 @@ interface ButtonProps {
   /**
    * Button contents
    */
-  label: string;
+  label?: string;
   /**
    * Optional click handler
    */
   onClick?: () => void;
 }
 
-export const MainMenu = ({ ...props }: ButtonProps) => {
+const MainMenu = ({ ...props }: ButtonProps) => {
   return (
     <div className="row menu">
       <div className="menu__item">
@@ -33,3 +33,5 @@ export const MainMenu = ({ ...props }: ButtonProps) => {
     </div>
   );
 };
+
+export default MainMenu;

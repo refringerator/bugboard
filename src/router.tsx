@@ -7,11 +7,18 @@ import {
 import App from "./screens/App/App.tsx";
 import ErrorPage from "./error-page.tsx";
 import OAuthCallback from "./routes/OAuthCallback.tsx";
+import MainScreen from "./screens/MainScreen/MainScreen.tsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements([
     <Route
       path="/"
+      element={<MainScreen />}
+      // loader={OAuthCallback.loader}
+      // action={editAction}
+    />,
+    <Route
+      path="/app"
       element={<App />}
       // loader={rootLoader}
       // action={rootAction}

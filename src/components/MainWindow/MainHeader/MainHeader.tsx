@@ -23,7 +23,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-export const MainHeader = ({ ...props }: ButtonProps) => {
+const MainHeader = ({ ...props }: ButtonProps) => {
   return (
     <div className="row header">
       <img className="header__icon" src="vite.svg" alt="My Happy SVG" />
@@ -32,3 +32,5 @@ export const MainHeader = ({ ...props }: ButtonProps) => {
     </div>
   );
 };
+
+export default MainHeader;

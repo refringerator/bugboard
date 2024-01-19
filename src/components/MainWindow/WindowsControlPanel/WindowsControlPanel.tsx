@@ -23,7 +23,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-export const WindowsControlPanel = ({ ...props }: ButtonProps) => {
+const WindowsControlPanel = ({ ...props }: ButtonProps) => {
   return (
     <div className="row footer">
       <div className="footer__win">
@@ -41,3 +41,5 @@ export const WindowsControlPanel = ({ ...props }: ButtonProps) => {
     </div>
   );
 };
+
+export default WindowsControlPanel;
