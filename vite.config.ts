@@ -11,4 +11,9 @@ export default defineConfig({
     }),
   ],
   base: process.env.BASE_URL,
+  resolve: {
+    alias: {
+      'src': '/src',
+    }
+  }
 });
