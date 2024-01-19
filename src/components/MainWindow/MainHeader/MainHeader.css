@@ -1,0 +1,29 @@
+.header {
+  cursor: default;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 2%,
+    rgba(0, 110, 255, 1) 100%
+  );
+  color: white;
+  font-family: sans-serif;
+  font-weight: 650;
+  padding: 3px;
+  position: sticky;
+  top: 0;
+}
+
+.header__icon {
+  height: 1em;
+}
+
+.header__text {
+}
+
+.header__button {
+  font-weight: bolder;
+  border-radius: 0;
+  float: right;
+}

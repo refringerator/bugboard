@@ -1,0 +1,23 @@
+.footer {
+  background-color: beige;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  /* width: 100%; */
+}
+.footer__win {
+  cursor: default;
+  border-radius: 1px;
+  border: solid antiquewhite;
+  max-width: 15em;
+  white-space: nowrap;
+  overflow-x: hidden;
+  background-color: rgba(220, 205, 187, 0.692);
+}
+
+.footer__icon {
+  height: 1em;
+}
+
+.footer__text {
+}
