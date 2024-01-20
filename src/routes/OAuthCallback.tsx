@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation } from 'react-router-dom';
 
 interface ILoader {
   request: Request;
@@ -6,22 +6,22 @@ interface ILoader {
 
 async function loader({ request }: ILoader) {
   const url = new URL(request.url);
-  const code = url.searchParams.get("code");
+  const code = url.searchParams.get('code');
 
-  if (!code) return { error: "Не был предоставлен code" };
+  if (!code) return { error: 'Не был предоставлен code' };
 
   // TODO: выполняем проверку полученного state со значением из хранилища
   // const state = url.searchParams.get("state");
 
   // тут выполнить запрос на лямбду
   const response = await fetch(
-    "https://qzdcusvmotytjzoctaga.supabase.co/functions/v1/gh-auth-token",
+    'https://qzdcusvmotytjzoctaga.supabase.co/functions/v1/gh-auth-token',
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code: code }),
+      body: JSON.stringify({ code }),
     }
   );
 
@@ -42,24 +42,29 @@ function OAuthCallback() {
   };
   const navigation = useNavigation();
 
-  if (navigation.state === "loading")
+  if (navigation.state === 'loading') {
     return (
       <div>
         <p>Handling OAuth callback...</p>
       </div>
     );
+  }
 
-  if (error || !access_token)
+  if (error || !access_token) {
     return (
       <div>
         <p>Ошибка при получении токена</p>
         {error && <p>{error}</p>}
       </div>
     );
+  }
 
   return (
     <div>
-      <p>Получен токен {access_token}</p>
+      <p>
+        Получен токен
+        {access_token}
+      </p>
     </div>
   );
 }

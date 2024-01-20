@@ -1,13 +1,13 @@
-import MainMenu from "src/components/MainWindow/MainMenu/MainMenu";
-import MainHeader from "src/components/MainWindow/MainHeader/MainHeader";
-import WindowsControlPanel from "src/components/MainWindow/WindowsControlPanel/WindowsControlPanel";
+import MainMenu from 'src/components/MainWindow/MainMenu/MainMenu';
+import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
+import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
 
 function MainScreen() {
   // const [count, setCount] = useState(0);
 
   return (
     <>
-      <MainHeader />
+      <MainHeader title="BugBoard" icon="vite.svg" />
       <MainMenu />
       <WindowsControlPanel />
       {/* <button onClick={() => setCount(count + 1)}>{`Counter: ${count}`}</button> */}

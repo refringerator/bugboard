@@ -1,4 +1,4 @@
-import "./MainMenu.css";
+import './MainMenu.css';
 
 interface ButtonProps {
   /**
@@ -12,7 +12,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   /**
    * Button contents
    */
@@ -23,7 +23,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const MainMenu = ({ ...props }: ButtonProps) => {
+function MainMenu({ ...props }: ButtonProps) {
   return (
     <div className="row menu">
       <div className="menu__item">
@@ -32,6 +32,6 @@ const MainMenu = ({ ...props }: ButtonProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default MainMenu;

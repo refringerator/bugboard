@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import  MainMenu  from "./MainMenu";
+import MainMenu from './MainMenu';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -10,7 +10,7 @@ const meta = {
     // layout: "centered",
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     // backgroundColor: { control: "color" },
@@ -20,7 +20,5 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
-    args: {
-
-    },
-  };
+  args: {},
+};

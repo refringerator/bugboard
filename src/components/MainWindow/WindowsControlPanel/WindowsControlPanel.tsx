@@ -1,4 +1,4 @@
-import "./WindowsControlPanel.css";
+import './WindowsControlPanel.css';
 
 interface ButtonProps {
   /**
@@ -12,7 +12,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   /**
    * Button contents
    */
@@ -23,7 +23,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const WindowsControlPanel = ({ ...props }: ButtonProps) => {
+function WindowsControlPanel({ ...props }: ButtonProps) {
   return (
     <div className="row footer">
       <div className="footer__win">
@@ -40,6 +40,6 @@ const WindowsControlPanel = ({ ...props }: ButtonProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default WindowsControlPanel;
