@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // import "./App.css";
 
-const oauth_link = `https://github.com/login/oauth/authorize?client_id=${
+const oauthLink = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
 }&scope=public_repo`;
 //
@@ -13,8 +13,11 @@ function App() {
 
   return (
     <>
-      <button onClick={() => setCount(count + 1)}>{`Counter: ${count}`}</button>
-      <a href={oauth_link} className="github-button">
+      <button
+        type="button"
+        onClick={() => setCount(count + 1)}
+      >{`Counter: ${count}`}</button>
+      <a href={oauthLink} className="github-button">
         Sign in with GitHub
       </a>
     </>

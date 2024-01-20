@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-key */
 import {
   createRoutesFromElements,
   createBrowserRouter,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import App from "./screens/App/App.tsx";
-import ErrorPage from "./error-page.tsx";
-import OAuthCallback from "./routes/OAuthCallback.tsx";
-import MainScreen from "./screens/MainScreen/MainScreen.tsx";
+import App from './screens/App/App';
+import ErrorPage from './error-page';
+import OAuthCallback from './routes/OAuthCallback';
+import MainScreen from './screens/MainScreen/MainScreen';
 
-export const router = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements([
     <Route
       path="/"
@@ -49,3 +50,5 @@ export const router = createBrowserRouter(
     />,
   ])
 );
+
+export default router;

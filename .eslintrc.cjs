@@ -13,7 +13,7 @@ module.exports = {
     // 'react-app', ?? react/recommended
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist'], // , ".eslintrc.cjs"
+  ignorePatterns: ['dist', 'vite.config.ts', 'supabase'], // , ".eslintrc.cjs"
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',

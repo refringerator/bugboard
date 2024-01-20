@@ -30,14 +30,14 @@ async function loader({ request }: ILoader) {
     error = `HTTP error! Status: ${response.status}`;
   }
 
-  const { access_token } = await response.json();
+  const { accessToken } = await response.json();
 
-  return { access_token, error };
+  return { accessToken, error };
 }
 
 function OAuthCallback() {
-  const { access_token, error } = useLoaderData() as {
-    access_token?: string;
+  const { accessToken, error } = useLoaderData() as {
+    accessToken?: string;
     error?: string;
   };
   const navigation = useNavigation();
@@ -50,7 +50,7 @@ function OAuthCallback() {
     );
   }
 
-  if (error || !access_token) {
+  if (error || !accessToken) {
     return (
       <div>
         <p>Ошибка при получении токена</p>
@@ -63,7 +63,7 @@ function OAuthCallback() {
     <div>
       <p>
         Получен токен
-        {access_token}
+        {accessToken}
       </p>
     </div>
   );
