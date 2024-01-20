@@ -6,10 +6,12 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
-    // 'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    // 'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
-    // 'react-app',
+    // 'react-app', ?? react/recommended
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist'], // , ".eslintrc.cjs"
   parser: '@typescript-eslint/parser',
@@ -18,7 +20,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'prettier'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
