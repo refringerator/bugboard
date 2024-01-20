@@ -1,31 +1,28 @@
+import ControlPanelElement from './ControlPanelElement/ControlPanelElement';
+import ControlPanelElementProps from './ControlPanelElement/types';
 import './WindowsControlPanel.css';
 
-interface ButtonProps {
-  primary?: boolean;
+interface WindowsControlPanelProps {
+  ControlPanelElements: ControlPanelElementProps[];
 }
 
-function WindowsControlPanel({ primary }: ButtonProps) {
+function WindowsControlPanel({
+  ControlPanelElements,
+}: WindowsControlPanelProps) {
   return (
     <div className="row footer">
-      <div className="footer__win">
-        <img className="footer__icon" src="vite.svg" alt="My Happy SVG" />
-        <span className="footer__text">BugBoard - Лучше не найти</span>
-      </div>
-      <div className="footer__win">
-        <img className="footer__icon" src="vite.svg" alt="My Happy SVG" />
-        <span className="footer__text">BugBoard - Лучше не найти</span>
-      </div>
-      {primary && (
-        <div className="footer__win">
-          <img className="footer__icon" src="vite.svg" alt="My Happy SVG" />
-          <span className="footer__text">BugBoard - Лучше не найти</span>
-        </div>
-      )}
+      {ControlPanelElements &&
+        ControlPanelElements.map((element) => (
+          <ControlPanelElement
+            key={element.id}
+            title={element.title}
+            icon={element.icon}
+            id={element.id}
+          />
+        ))}
     </div>
   );
 }
-WindowsControlPanel.defaultProps = {
-  primary: true,
-};
+WindowsControlPanel.defaultProps = {};
 
 export default WindowsControlPanel;

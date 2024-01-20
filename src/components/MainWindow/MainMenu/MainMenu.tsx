@@ -1,24 +1,29 @@
 import './MainMenu.css';
+import MenuElement from './MenuElement/MenuElement';
+import MenuElementProps from './MenuElement/types';
 
-interface ButtonProps {
-  primary?: boolean;
+interface MainMenuProps {
+  menuElements?: MenuElementProps[];
 }
 
-function MainMenu({ primary }: ButtonProps) {
+function MainMenu({ menuElements }: MainMenuProps) {
   return (
     <div className="row menu">
-      <div className="menu__item">
-        <img className="menu__icon" src="vite.svg" alt="My Happy SVG" />
-        {primary && (
-          <span className="menu__text">BugBoard - Лучше не найти</span>
-        )}
-      </div>
+      {menuElements &&
+        menuElements.map((element) => (
+          <MenuElement
+            key={element.id}
+            title={element.title}
+            icon={element.icon}
+            id={element.id}
+          />
+        ))}
     </div>
   );
 }
 
 MainMenu.defaultProps = {
-  primary: true,
+  menuElements: [],
 };
 
 export default MainMenu;

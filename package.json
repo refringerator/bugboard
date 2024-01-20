@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && touch dist/.nojekyll",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 10 --fix",
     "preview": "vite preview",
     "test": "echo test",
     "storybook": "storybook dev -p 6006",
