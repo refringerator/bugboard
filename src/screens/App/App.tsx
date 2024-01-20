@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "./App.css";
+// import "./App.css";
 
 const oauth_link = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
