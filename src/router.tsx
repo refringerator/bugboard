@@ -48,7 +48,8 @@ const router = createBrowserRouter(
       loader={OAuthCallback.loader}
       // action={editAction}
     />,
-  ])
+  ]),
+  { basename: import.meta.env.BASE_URL }
 );
 
 export default router;
