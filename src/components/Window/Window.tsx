@@ -1,6 +1,6 @@
-import { useRef, useState, MouseEventHandler } from 'react';
 import './Window.css';
 import useResizeElement from 'src/hooks/useResizeElement';
+import useMoveElement from 'src/hooks/useMoveElement';
 
 interface MainMenuProps {
   width?: number;
@@ -20,41 +20,18 @@ function Window({
     width: curWidth,
     height: curHeight,
   } = useResizeElement({ minWidth, minHeight, width, height });
-  const [position, setPosition] = useState({ x: 100, y: 100 });
-  const [isGrabbing, setGrabbing] = useState(false);
 
-  const isDragging = useRef(false);
-
-  const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
-    setGrabbing(true);
-    isDragging.current = true;
-    const offsetX = e.clientX - position.x;
-    const offsetY = e.clientY - position.y;
-
-    const handleMouseMove = (ev: MouseEvent) => {
-      if (isDragging.current) {
-        setPosition({ x: ev.clientX - offsetX, y: ev.clientY - offsetY });
-      }
-    };
-
-    const handleMouseUp = () => {
-      // setDragging(false);
-      isDragging.current = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      setGrabbing(false);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  };
+  const {
+    handleMouseDown: handleMouseDownMove,
+    isGrabbing,
+    position,
+  } = useMoveElement({ startX: 100, startY: 100 });
 
   return (
     <div
       className="window"
       style={{
         position: 'absolute',
-
         left: position.x,
         top: position.y,
         width: curWidth + 2,
@@ -63,7 +40,7 @@ function Window({
     >
       <div
         className="window__header"
-        onMouseDown={handleMouseDown}
+        onMouseDown={handleMouseDownMove}
         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
       >
         header
