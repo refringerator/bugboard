@@ -1,6 +1,7 @@
 import MainMenu from 'src/components/MainWindow/MainMenu/MainMenu';
 import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
 import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
+import Window from 'src/components/Window/Window';
 
 function MainScreen() {
   const onClose = () => {
@@ -23,6 +24,7 @@ function MainScreen() {
     <>
       <MainHeader title="BugBoard" icon="bug.svg" onClick={onClose} />
       <MainMenu menuElements={menuElements} />
+      <Window />
       <WindowsControlPanel controlPanelElements={controlElements} />
     </>
   );

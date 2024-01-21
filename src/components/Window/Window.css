@@ -1,0 +1,18 @@
+.window {
+  height: 100px;
+  width: 200px;
+  border-width: 2px;
+  border: solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.window__header {
+  background-color: cornflowerblue;
+}
+
+.window__content {
+  background-color: cadetblue;
+  /* max-height: 90%; */
+  flex: 1;
+}
