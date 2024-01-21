@@ -19,6 +19,13 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const menuElements = [
+  { id: '1', title: 'Сообщить о баге' },
+  { id: '2', title: 'Что-то еще' },
+  { id: '3', title: 'Выход' },
+];
+
 export const Primary: Story = {
-  args: {},
+  args: { menuElements },
 };

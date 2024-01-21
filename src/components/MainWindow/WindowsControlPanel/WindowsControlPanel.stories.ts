@@ -18,6 +18,13 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const controlPanelElements = [
+  { id: '1', title: 'Окно 1', icon: 'vite.svg' },
+  { id: '2', title: 'Окно 2' },
+  { id: '3', title: 'Окно 3', icon: 'bug.svg' },
+];
+
 export const Primary: Story = {
-  args: {},
+  args: { controlPanelElements },
 };

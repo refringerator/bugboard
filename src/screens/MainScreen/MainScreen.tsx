@@ -23,7 +23,7 @@ function MainScreen() {
     <>
       <MainHeader title="BugBoard" icon="bug.svg" onClick={onClose} />
       <MainMenu menuElements={menuElements} />
-      <WindowsControlPanel ControlPanelElements={controlElements} />
+      <WindowsControlPanel controlPanelElements={controlElements} />
     </>
   );
 }

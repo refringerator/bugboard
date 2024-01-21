@@ -3,16 +3,16 @@ import ControlPanelElementProps from './ControlPanelElement/types';
 import './WindowsControlPanel.css';
 
 interface WindowsControlPanelProps {
-  ControlPanelElements: ControlPanelElementProps[];
+  controlPanelElements: ControlPanelElementProps[];
 }
 
 function WindowsControlPanel({
-  ControlPanelElements,
+  controlPanelElements,
 }: WindowsControlPanelProps) {
   return (
     <div className="row footer">
-      {ControlPanelElements &&
-        ControlPanelElements.map((element) => (
+      {controlPanelElements &&
+        controlPanelElements.map((element) => (
           <ControlPanelElement
             key={element.id}
             title={element.title}
