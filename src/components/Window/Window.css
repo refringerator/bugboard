@@ -2,6 +2,7 @@
   height: 100px;
   width: 200px;
   border-width: 2px;
+  border: 1px solid #382727;
   border: solid;
   display: flex;
   flex-direction: column;
@@ -9,6 +10,7 @@
 
 .window__header {
   background-color: cornflowerblue;
+  border-bottom: 1px solid #382727;
 }
 
 .window__content {

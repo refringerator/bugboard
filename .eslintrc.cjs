@@ -33,5 +33,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'jsx-a11y/no-static-element-interactions': 'off',
   },
 };
