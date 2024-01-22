@@ -2,11 +2,15 @@ import './Window.css';
 import useResizeElement from 'src/hooks/useResizeElement';
 import useMoveElement from 'src/hooks/useMoveElement';
 
-interface MainMenuProps {
+interface WindowProps {
   width?: number;
   height?: number;
   minWidth?: number;
   minHeight?: number;
+  id: string;
+  title: string;
+  content: string;
+  onCloseClick: (id: string) => void;
 }
 
 function Window({
@@ -14,7 +18,11 @@ function Window({
   minHeight = 80,
   width = 200,
   height = 150,
-}: MainMenuProps) {
+  id,
+  title,
+  content,
+  onCloseClick,
+}: WindowProps) {
   const {
     handleMouseDown: handleMouseDownResize,
     width: curWidth,
@@ -43,11 +51,11 @@ function Window({
         onMouseDown={handleMouseDownMove}
         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
       >
-        <div>header</div>
+        <div>{title}</div>
         <div>
           <button
             type="button"
-            onClick={() => console.log('123')}
+            onClick={() => onCloseClick(id)}
             className="header__button"
           >
             X
@@ -55,7 +63,7 @@ function Window({
         </div>
       </div>
       <div className="window__content" onMouseDown={handleMouseDownResize}>
-        content
+        {content}
       </div>
     </div>
   );
