@@ -48,7 +48,7 @@ function MainScreen() {
       <MainHeader title="BugBoard" icon="bug.svg" onClick={onClose} />
       <MainMenu menuElements={menuElements} />
 
-      {wins.map((window) => (
+      {wins.map((window, index) => (
         <Window
           key={window.id}
           id={window.id}
@@ -57,6 +57,8 @@ function MainScreen() {
           zIndex={window.zIndex}
           onCloseClick={onCloseClick}
           onWindowFocus={onActive}
+          startX={100 + index * 25}
+          startY={100 + index * 25}
         />
       ))}
 

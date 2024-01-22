@@ -11,6 +11,8 @@ interface WindowProps {
   title: string;
   content: string;
   zIndex?: number;
+  startX?: number;
+  startY?: number;
   onCloseClick: (id: string) => void;
   onWindowFocus: (id: string) => void;
 }
@@ -26,6 +28,8 @@ function Window({
   zIndex,
   onCloseClick,
   onWindowFocus,
+  startX,
+  startY,
 }: WindowProps) {
   const {
     handleMouseDown: handleMouseDownResize,
@@ -37,7 +41,7 @@ function Window({
     handleMouseDown: handleMouseDownMove,
     isGrabbing,
     position,
-  } = useMoveElement({ startX: 100, startY: 100 });
+  } = useMoveElement({ startX, startY });
 
   return (
     <div
@@ -81,6 +85,8 @@ Window.defaultProps = {
   width: 200,
   height: 150,
   zIndex: 5,
+  startX: 100,
+  startY: 100,
 };
 
 export default Window;
