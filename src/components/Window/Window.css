@@ -6,11 +6,11 @@
   border: solid;
   display: flex;
   flex-direction: column;
-  z-index: 5;
+  /* z-index: 5; */
 }
 
 .window:active {
-  z-index: 99;
+  /* z-index: 199; */
 }
 
 .window__header {

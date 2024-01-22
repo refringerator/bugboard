@@ -5,13 +5,14 @@ import Window from 'src/components/Window/Window';
 import { useState } from 'react';
 
 const windows = [
-  { id: '1', title: 'window 1', content: 'content 1' },
-  { id: '2', title: 'window 2', content: 'content 2' },
-  { id: '3', title: 'window 3', content: 'content 3' },
+  { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
+  { id: '2', title: 'window 2', content: 'content 2', zIndex: 5 },
+  { id: '3', title: 'window 3', content: 'content 3', zIndex: 5 },
 ];
 
 function MainScreen() {
   const [wins, setWins] = useState(windows);
+  const [zIndex, setZIndex] = useState(10);
 
   const onClose = () => {
     console.log('Close button clicked');
@@ -19,6 +20,15 @@ function MainScreen() {
 
   const onCloseClick = (windowId: string) => {
     setWins(wins.filter((window) => window.id !== windowId));
+  };
+
+  const onActive = (windowId: string) => {
+    const newWins = wins.map((curWindow) => ({
+      ...curWindow,
+      zIndex: curWindow.id === windowId ? zIndex : curWindow.zIndex,
+    }));
+    setWins(newWins);
+    setZIndex((val) => val + 1);
   };
 
   const menuElements = [
@@ -44,7 +54,9 @@ function MainScreen() {
           id={window.id}
           title={window.title}
           content={window.content}
+          zIndex={window.zIndex}
           onCloseClick={onCloseClick}
+          onWindowFocus={onActive}
         />
       ))}
 

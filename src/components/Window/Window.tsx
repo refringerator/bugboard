@@ -10,7 +10,9 @@ interface WindowProps {
   id: string;
   title: string;
   content: string;
+  zIndex?: number;
   onCloseClick: (id: string) => void;
+  onWindowFocus: (id: string) => void;
 }
 
 function Window({
@@ -21,7 +23,9 @@ function Window({
   id,
   title,
   content,
+  zIndex,
   onCloseClick,
+  onWindowFocus,
 }: WindowProps) {
   const {
     handleMouseDown: handleMouseDownResize,
@@ -38,12 +42,14 @@ function Window({
   return (
     <div
       className="window"
+      onMouseDown={() => onWindowFocus(id)}
       style={{
         position: 'absolute',
         left: position.x,
         top: position.y,
         width: curWidth + 2,
         height: curHeight + 2,
+        zIndex,
       }}
     >
       <div
@@ -74,6 +80,7 @@ Window.defaultProps = {
   minHeight: 80,
   width: 200,
   height: 150,
+  zIndex: 5,
 };
 
 export default Window;
