@@ -6,11 +6,25 @@
   border: solid;
   display: flex;
   flex-direction: column;
+  z-index: 5;
+}
+
+.window:active {
+  z-index: 99;
 }
 
 .window__header {
   background-color: cornflowerblue;
   border-bottom: 1px solid #382727;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.window__header__title {
+}
+
+.window__header__close {
 }
 
 .window__content {

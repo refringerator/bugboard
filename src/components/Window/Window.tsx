@@ -43,7 +43,16 @@ function Window({
         onMouseDown={handleMouseDownMove}
         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
       >
-        header
+        <div>header</div>
+        <div>
+          <button
+            type="button"
+            onClick={() => console.log('123')}
+            className="header__button"
+          >
+            X
+          </button>
+        </div>
       </div>
       <div className="window__content" onMouseDown={handleMouseDownResize}>
         content
