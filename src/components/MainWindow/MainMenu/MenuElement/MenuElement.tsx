@@ -2,17 +2,18 @@ import './MenuElement.css';
 
 import MenuElementProps from './types';
 
-function MenuElement({ icon, title }: MenuElementProps) {
+function MenuElement({ icon, title, onClick }: MenuElementProps) {
   return (
-    <div className="menu__item">
+    <button type="button" className="menu__item" onClick={onClick}>
       <img className="menu__icon" src={icon} alt="" />
       <span className="menu__text">{title}</span>
-    </div>
+    </button>
   );
 }
 
 MenuElement.defaultProps = {
   icon: '',
+  onClick: () => {},
 };
 
 export default MenuElement;

@@ -3,6 +3,12 @@
 }
 
 .menu__item {
-  /* background-color: bisque; */
+  background-color: inherit;
   color: rgb(138, 101, 53);
+  border: none;
+  border-radius: 4px;
+}
+
+.menu__item:hover {
+  background-color: #e9e9ed;
 }

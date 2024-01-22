@@ -16,6 +16,7 @@ function MainMenu({ menuElements }: MainMenuProps) {
             title={element.title}
             icon={element.icon}
             id={element.id}
+            onClick={element.onClick}
           />
         ))}
     </div>
