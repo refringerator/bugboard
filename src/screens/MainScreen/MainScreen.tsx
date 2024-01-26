@@ -16,6 +16,7 @@ function MainScreen() {
   const winId = useRef(3);
 
   const onClose = () => {
+    setWins([]);
     console.log('Close button clicked');
   };
 
