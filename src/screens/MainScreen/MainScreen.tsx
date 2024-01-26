@@ -3,6 +3,9 @@ import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
 import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
 import Window from 'src/components/Window/Window';
 import { useRef, useState } from 'react';
+import type { RootState } from 'src/redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from 'src/redux/counterSlice';
 
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
@@ -14,6 +17,9 @@ function MainScreen() {
   const [wins, setWins] = useState(windows);
   const [zIndex, setZIndex] = useState(10);
   const winId = useRef(3);
+
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
 
   const onClose = () => {
     setWins([]);
@@ -49,7 +55,7 @@ function MainScreen() {
   const menuElements = [
     { id: '1', title: 'Сообщить о баге' },
     { id: '2', title: 'Что-то еще', onClick: genNewWindows },
-    { id: '3', title: 'Выход' },
+    { id: '3', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
 
   const controlElements = [
@@ -60,7 +66,11 @@ function MainScreen() {
 
   return (
     <>
-      <MainHeader title="BugBoard" icon="bug.svg" onClick={onClose} />
+      <MainHeader
+        title={`BugBoard ${count}`}
+        icon="bug.svg"
+        onClick={onClose}
+      />
       <MainMenu menuElements={menuElements} />
 
       {wins.map((window, index) => (

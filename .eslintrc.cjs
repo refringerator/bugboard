@@ -34,5 +34,9 @@ module.exports = {
     'no-console': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     'jsx-a11y/no-static-element-interactions': 'off',
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsForRegex: ['^state'] },
+    ],
   },
 };
