@@ -2,7 +2,9 @@ import MainMenu from 'src/components/MainWindow/MainMenu/MainMenu';
 import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
 import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
 import Window from 'src/components/Window/Window';
-import { useRef, useState } from 'react';
+import ContextMenu from 'src/components/ContextMenu/ContextMenu';
+
+import { useEffect, useRef, useState } from 'react';
 import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment } from 'src/redux/counterSlice';
@@ -16,7 +18,28 @@ const windows = [
 function MainScreen() {
   const [wins, setWins] = useState(windows);
   const [zIndex, setZIndex] = useState(10);
+  const [cm, setCm] = useState(false);
+  const [cmCoords, setCmCoords] = useState({ x: 0, y: 0 });
   const winId = useRef(3);
+
+  const handleContextMenu = (event: MouseEvent) => {
+    event.preventDefault(); // Prevent the browser's default context menu
+    setCmCoords({ x: event.pageX, y: event.pageY });
+    setCm(true);
+  };
+
+  const handleHideContextMenu = () => {
+    setCm(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('contextmenu', handleContextMenu);
+    window.addEventListener('click', handleHideContextMenu);
+    return () => {
+      window.removeEventListener('contextmenu', handleContextMenu);
+      window.removeEventListener('click', handleHideContextMenu);
+    };
+  }, []);
 
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
@@ -72,6 +95,13 @@ function MainScreen() {
         onClick={onClose}
       />
       <MainMenu menuElements={menuElements} />
+      {cm && (
+        <ContextMenu
+          startX={cmCoords.x}
+          startY={cmCoords.y}
+          onCloseClick={() => setCm(false)}
+        />
+      )}
 
       {wins.map((window, index) => (
         <Window

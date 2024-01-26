@@ -1,0 +1,22 @@
+.context-menu {
+  /* display: flex; */
+  /* height: 200px;
+  width: 150px; */
+  background-color: honeydew;
+  z-index: 1000000;
+  display: block;
+  position: absolute;
+  /* background-color: #fff; */
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.context-menu-item {
+  list-style: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.context-menu-item:hover {
+  background-color: #e4e4e4;
+}
