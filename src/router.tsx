@@ -5,10 +5,10 @@ import {
   Route,
 } from 'react-router-dom';
 
-import App from './screens/App/App';
+import App from './windows/App/App';
 import ErrorPage from './error-page';
 import OAuthCallback from './routes/OAuthCallback';
-import MainScreen from './screens/MainScreen/MainScreen';
+import MainScreen from './windows/MainScreen/MainScreen';
 
 const router = createBrowserRouter(
   createRoutesFromElements([
