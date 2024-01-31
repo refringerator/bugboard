@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
-import tokenSaga from './token/saga';
-import helloSaga from './saga/hello';
+// import tokenSaga from './token/saga';
 
 import counterReducer from './counterSlice';
+import rootSaga from './saga/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,8 +16,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(sagaMiddleware),
 });
 
-sagaMiddleware.run(tokenSaga);
-sagaMiddleware.run(helloSaga);
+// sagaMiddleware.run(tokenSaga);
+sagaMiddleware.run(rootSaga);
 
 // Удалить потом, пример из туториала
 // export const action = (type: string) => store.dispatch({ type });

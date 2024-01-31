@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from './store';
 
 export interface CounterState {
   value: number;
@@ -31,5 +32,12 @@ export const counterSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+export const countSelectors = {
+  get: (state: RootState): RootState['counter'] => {
+    console.log('countSelectors get');
+    return state.counter;
+  },
+};
 
 export default counterSlice.reducer;

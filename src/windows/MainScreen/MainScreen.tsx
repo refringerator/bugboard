@@ -7,10 +7,9 @@ import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 import { useEffect, useRef, useState } from 'react';
 import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from 'src/redux/counterSlice';
+import { increment } from 'src/redux/counterSlice';
 
-import Counter from 'src/components/delete_me/Counter';
-import { store } from 'src/redux/store';
+import CounterWindow from '../CounterWindow';
 
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
@@ -36,30 +35,19 @@ function MainScreen() {
     setCm(false);
   };
 
-  useEffect(() => {
-    const windowId = '99';
+  const handleOpenCounterWindow = () => {
+    const windowId = 'CounterWindow';
+
     setWins([
       ...wins.filter((window) => window.id !== windowId),
       {
         id: windowId,
-        title: 'Window counter',
-        content: (
-          // '123',
-          <Counter
-            value={count.toString()}
-            onIncrement={() => dispatch(increment())}
-            onDecrement={() => dispatch(increment())}
-            onIncrementAsync={() => dispatch(increment())}
-          />
-        ),
+        title: 'Counter Window',
+        content: <CounterWindow />,
         zIndex: 5,
       },
     ]);
-    return () => {
-      setWins(wins.filter((window) => window.id !== windowId));
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count]);
+  };
 
   useEffect(() => {
     window.addEventListener('contextmenu', handleContextMenu);
@@ -102,7 +90,7 @@ function MainScreen() {
   };
 
   const menuElements = [
-    { id: '1', title: 'Сообщить о баге' },
+    { id: '1', title: 'Открыть Счетчик', onClick: handleOpenCounterWindow },
     { id: '2', title: 'Что-то еще', onClick: genNewWindows },
     { id: '3', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
