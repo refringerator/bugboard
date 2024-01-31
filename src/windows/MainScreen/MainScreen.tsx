@@ -1,7 +1,7 @@
 import MainMenu from 'src/components/MainWindow/MainMenu/MainMenu';
 import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
 import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
-import Window from 'src/components/Window/Window';
+import Window, { IWindowProps } from 'src/components/Window/Window';
 import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 
 import { useEffect, useRef, useState } from 'react';
@@ -9,18 +9,22 @@ import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment } from 'src/redux/counterSlice';
 
+import Counter from 'src/components/delete_me/Counter';
+import { store } from 'src/redux/store';
+
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
   { id: '2', title: 'window 2', content: 'content 2', zIndex: 5 },
-  { id: '3', title: 'window 3', content: 'content 3', zIndex: 5 },
 ];
 
 function MainScreen() {
-  const [wins, setWins] = useState(windows);
+  const [wins, setWins] = useState<IWindowProps[]>(windows);
   const [zIndex, setZIndex] = useState(10);
   const [cm, setCm] = useState(false);
   const [cmCoords, setCmCoords] = useState({ x: 0, y: 0 });
   const winId = useRef(3);
+  const dispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.counter.value);
 
   const handleContextMenu = (event: MouseEvent) => {
     event.preventDefault(); // Prevent the browser's default context menu
@@ -33,6 +37,31 @@ function MainScreen() {
   };
 
   useEffect(() => {
+    const windowId = '99';
+    setWins([
+      ...wins.filter((window) => window.id !== windowId),
+      {
+        id: windowId,
+        title: 'Window counter',
+        content: (
+          // '123',
+          <Counter
+            value={count.toString()}
+            onIncrement={() => dispatch(increment())}
+            onDecrement={() => dispatch(increment())}
+            onIncrementAsync={() => dispatch(increment())}
+          />
+        ),
+        zIndex: 5,
+      },
+    ]);
+    return () => {
+      setWins(wins.filter((window) => window.id !== windowId));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
+
+  useEffect(() => {
     window.addEventListener('contextmenu', handleContextMenu);
     window.addEventListener('click', handleHideContextMenu);
     return () => {
@@ -40,9 +69,6 @@ function MainScreen() {
       window.removeEventListener('click', handleHideContextMenu);
     };
   }, []);
-
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
 
   const onClose = () => {
     setWins([]);

@@ -2,19 +2,19 @@ import './Window.css';
 import useResizeElement from 'src/hooks/useResizeElement';
 import useMoveElement from 'src/hooks/useMoveElement';
 
-interface WindowProps {
+export interface IWindowProps {
   width?: number;
   height?: number;
   minWidth?: number;
   minHeight?: number;
   id: string;
   title: string;
-  content: string;
+  content: string | React.ReactNode;
   zIndex?: number;
   startX?: number;
   startY?: number;
-  onCloseClick: (id: string) => void;
-  onWindowFocus: (id: string) => void;
+  onCloseClick?: (id: string) => void;
+  onWindowFocus?: (id: string) => void;
 }
 
 function Window({
@@ -26,11 +26,11 @@ function Window({
   title,
   content,
   zIndex,
-  onCloseClick,
-  onWindowFocus,
+  onCloseClick = (fid: string) => {},
+  onWindowFocus = (fid: string) => {},
   startX,
   startY,
-}: WindowProps) {
+}: IWindowProps) {
   const {
     handleMouseDown: handleMouseDownResize,
     width: curWidth,
@@ -87,6 +87,8 @@ Window.defaultProps = {
   zIndex: 5,
   startX: 100,
   startY: 100,
+  onCloseClick: (id: string) => {},
+  onWindowFocus: (id: string) => {},
 };
 
 export default Window;
