@@ -19,7 +19,7 @@ interface ContextMenuProps {
 
 function ContextMenu({ startX, startY, onCloseClick }: ContextMenuProps) {
   const customAction = (action: string) => () => {
-    alert(`Performing ${action}`);
+    alert(`Performing ${action}!`);
     onCloseClick();
   };
 
