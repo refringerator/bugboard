@@ -4,13 +4,14 @@ import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/W
 import Window, { IWindowProps } from 'src/components/Window/Window';
 import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'src/redux/counterSlice';
 
 import { windowsSelectors } from 'src/redux/windowsSlice';
 import { Outlet } from 'react-router-dom';
+import useContextMenu from 'src/hooks/useContextMenu';
 import CounterWindow from '../CounterWindow';
 
 const windows = [
@@ -21,22 +22,11 @@ const windows = [
 function MainScreen() {
   const [wins, setWins] = useState<IWindowProps[]>(windows);
   const [zIndex, setZIndex] = useState(10);
-  const [cm, setCm] = useState(false);
-  const [cmCoords, setCmCoords] = useState({ x: 0, y: 0 });
+  const { cm, cmCoords, hideMenu } = useContextMenu();
   const winId = useRef(3);
   const dispatch = useDispatch();
   const count = useSelector((state: RootState) => state.counter.value);
   const windowsState = useSelector(windowsSelectors.get);
-
-  const handleContextMenu = (event: MouseEvent) => {
-    event.preventDefault(); // Prevent the browser's default context menu
-    setCmCoords({ x: event.pageX, y: event.pageY });
-    setCm(true);
-  };
-
-  const handleHideContextMenu = () => {
-    setCm(false);
-  };
 
   const handleOpenCounterWindow = () => {
     const windowId = 'CounterWindow';
@@ -49,20 +39,12 @@ function MainScreen() {
         id: windowId,
         title: 'Counter Window',
         content: <CounterWindow />,
-        zIndex: 5,
+        zIndex,
         ...ws,
       },
     ]);
+    setZIndex((val) => val + 1);
   };
-
-  useEffect(() => {
-    window.addEventListener('contextmenu', handleContextMenu);
-    window.addEventListener('click', handleHideContextMenu);
-    return () => {
-      window.removeEventListener('contextmenu', handleContextMenu);
-      window.removeEventListener('click', handleHideContextMenu);
-    };
-  }, []);
 
   const onClose = () => {
     setWins([]);
@@ -119,7 +101,7 @@ function MainScreen() {
         <ContextMenu
           startX={cmCoords.x}
           startY={cmCoords.y}
-          onCloseClick={() => setCm(false)}
+          onCloseClick={hideMenu}
         />
       )}
 
