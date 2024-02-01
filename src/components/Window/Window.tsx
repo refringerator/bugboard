@@ -1,6 +1,8 @@
 import './Window.css';
 import useResizeElement from 'src/hooks/useResizeElement';
 import useMoveElement from 'src/hooks/useMoveElement';
+import { useDispatch } from 'react-redux';
+import { setWindowState } from 'src/redux/windowsSlice';
 
 export interface IWindowProps {
   width?: number;
@@ -31,6 +33,7 @@ function Window({
   startX,
   startY,
 }: IWindowProps) {
+  const dispatch = useDispatch();
   const {
     handleMouseDown: handleMouseDownResize,
     width: curWidth,
@@ -42,6 +45,19 @@ function Window({
     isGrabbing,
     position,
   } = useMoveElement({ startX, startY });
+
+  const onWindowClode = () => {
+    dispatch(
+      setWindowState({
+        id,
+        width: curWidth,
+        height: curHeight,
+        startX: position.x,
+        startY: position.y,
+      })
+    );
+    onCloseClick(id);
+  };
 
   return (
     <div
@@ -65,7 +81,7 @@ function Window({
         <div>
           <button
             type="button"
-            onClick={() => onCloseClick(id)}
+            onClick={onWindowClode}
             className="header__button"
           >
             X

@@ -24,7 +24,7 @@ export const windowsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { set } = windowsSlice.actions;
+export const { set: setWindowState } = windowsSlice.actions;
 
 export const windowsSelectors = {
   get: (state: RootState): RootState['windows'] => {
