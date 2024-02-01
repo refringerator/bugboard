@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Counter from 'src/components/delete_me/Counter';
 import { countSelectors, increment } from 'src/redux/counterSlice';
 
-function CounterWindow() {
+function CounterWindowContent() {
   const dispatch = useDispatch();
   const { value: count } = useSelector(countSelectors.get);
 
@@ -16,4 +16,7 @@ function CounterWindow() {
   );
 }
 
-export default CounterWindow;
+CounterWindowContent.windowId = 'CounterWindow';
+CounterWindowContent.title = 'Counter Window';
+
+export default CounterWindowContent;

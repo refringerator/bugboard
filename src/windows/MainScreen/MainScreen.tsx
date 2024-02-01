@@ -12,7 +12,7 @@ import { increment } from 'src/redux/counterSlice';
 import { windowsSelectors } from 'src/redux/windowsSlice';
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
-import CounterWindow from '../CounterWindow';
+import CounterWindowContent from '../CounterWindowContent';
 
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
@@ -28,8 +28,10 @@ function MainScreen() {
   const count = useSelector((state: RootState) => state.counter.value);
   const windowsState = useSelector(windowsSelectors.get);
 
-  const handleOpenCounterWindow = () => {
-    const windowId = 'CounterWindow';
+  const openWindow = (
+    OWindow: React.FC & { windowId: string; title: string }
+  ) => {
+    const { windowId, title } = OWindow;
 
     const ws = windowsState.find((w) => w.id === windowId);
 
@@ -37,13 +39,17 @@ function MainScreen() {
       ...wins.filter((window) => window.id !== windowId),
       {
         id: windowId,
-        title: 'Counter Window',
-        content: <CounterWindow />,
+        title,
+        content: <OWindow />,
         zIndex,
         ...ws,
       },
     ]);
     setZIndex((val) => val + 1);
+  };
+
+  const handleOpenCounterWindow = () => {
+    openWindow(CounterWindowContent);
   };
 
   const onClose = () => {
@@ -72,9 +78,11 @@ function MainScreen() {
         id: `${winId.current}`,
         title: `window ${winId.current}`,
         content: `content ${winId.current}`,
-        zIndex: 5,
+        zIndex,
       },
     ]);
+
+    setZIndex((val) => val + 1);
   };
 
   const menuElements = [
