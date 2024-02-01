@@ -14,6 +14,8 @@ import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
 import CounterWindowContent from '../CounterWindowContent';
 import SettingsWindowContent from '../SettingsWindowContent';
+import IssuesListWindowContent from '../IssuesListWindowContent';
+import IssueWindowContent from '../IssueWindowContent';
 
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
@@ -98,7 +100,17 @@ function MainScreen() {
       title: 'Настройки',
       onClick: () => openWindow(SettingsWindowContent),
     },
-    { id: '4', title: 'Выход', onClick: () => dispatch(increment()) },
+    {
+      id: '4',
+      title: 'Список задач',
+      onClick: () => openWindow(IssuesListWindowContent),
+    },
+    {
+      id: '5',
+      title: 'Новая задача',
+      onClick: () => openWindow(IssueWindowContent),
+    },
+    { id: '99', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
 
   const controlElements = [
