@@ -24,7 +24,13 @@ const startWindows = [
     zIndex: 5,
     icon: 'vite.svg',
   },
-  { id: '2', title: 'window 2', content: 'content 2', zIndex: 5 },
+  {
+    id: '2',
+    title: 'window 2',
+    content: 'content 2',
+    zIndex: 5,
+    icon: 'bug.svg',
+  },
 ];
 
 function MainScreen() {
@@ -66,12 +72,6 @@ function MainScreen() {
     { id: '99', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
 
-  const controlElements = windows.map(({ id, title, icon }) => ({
-    id,
-    title,
-    icon,
-  }));
-
   return (
     <>
       <MainHeader
@@ -107,7 +107,13 @@ function MainScreen() {
 
       <Outlet />
 
-      <WindowsControlPanel controlPanelElements={controlElements} />
+      <WindowsControlPanel
+        controlPanelElements={windows.map(({ id, title, icon }) => ({
+          id,
+          title,
+          icon,
+        }))}
+      />
     </>
   );
 }
