@@ -65,7 +65,7 @@ function MainScreen() {
 
   const onClose = () => {
     setWins([]);
-    console.log('Close button clicked');
+    // console.log('Close button clicked');
   };
 
   const onCloseClick = (windowId: string) => {

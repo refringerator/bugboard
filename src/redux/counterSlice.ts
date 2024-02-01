@@ -35,7 +35,7 @@ export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 export const countSelectors = {
   get: (state: RootState): RootState['counter'] => {
-    console.log('countSelectors get');
+    // console.log('countSelectors get');
     return state.counter;
   },
 };
