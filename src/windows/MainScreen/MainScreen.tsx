@@ -13,6 +13,7 @@ import { windowsSelectors } from 'src/redux/windowsSlice';
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
 import CounterWindowContent from '../CounterWindowContent';
+import SettingsWindowContent from '../SettingsWindowContent';
 
 const windows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
@@ -86,9 +87,18 @@ function MainScreen() {
   };
 
   const menuElements = [
-    { id: '1', title: 'Открыть Счетчик', onClick: handleOpenCounterWindow },
-    { id: '2', title: 'Что-то еще', onClick: genNewWindows },
-    { id: '3', title: 'Выход', onClick: () => dispatch(increment()) },
+    {
+      id: '1',
+      title: 'Открыть Счетчик',
+      onClick: () => openWindow(CounterWindowContent),
+    },
+    { id: '2', title: 'Добавить окно', onClick: genNewWindows },
+    {
+      id: '3',
+      title: 'Настройки',
+      onClick: () => openWindow(SettingsWindowContent),
+    },
+    { id: '4', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
 
   const controlElements = [
