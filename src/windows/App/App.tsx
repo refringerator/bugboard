@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-// import "./App.css";
-
 const oauthLink = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
 }&scope=public_repo`;
@@ -11,13 +9,18 @@ const oauthLink = `https://github.com/login/oauth/authorize?client_id=${
 function App() {
   const [count, setCount] = useState(0);
 
+  const currentUri = window.location.origin + window.location.pathname;
+  const encodedUri = btoa(encodeURIComponent(`${currentUri}#oauth-callback`));
+
+  const fullOathLink = `${oauthLink}&state=${encodedUri}`;
+
   return (
     <>
       <button
         type="button"
         onClick={() => setCount(count + 1)}
       >{`Counter: ${count}`}</button>
-      <a href={oauthLink} className="github-button">
+      <a href={fullOathLink} className="github-button">
         Sign in with GitHub
       </a>
     </>
