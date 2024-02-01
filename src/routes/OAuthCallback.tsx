@@ -10,10 +10,13 @@ async function loader({ request }: ILoader) {
 
   if (!code) return { error: 'Не был предоставлен code' };
 
-  // TODO: выполняем проверку полученного state со значением из хранилища
-  // const state = url.searchParams.get("state");
+  // TODO: выполняем проверку полученного state со значением из хранилища, например
 
-  // тут выполнить запрос на лямбду
+  // Проверям в сессионном хранилище наш токен по коду
+  const token = sessionStorage.getItem(code);
+  if (token) return { accessToken: token };
+
+  // тут выполнить запрос на лямбду для получения токена
   const response = await fetch(
     'https://qzdcusvmotytjzoctaga.supabase.co/functions/v1/gh-auth-token',
     {
@@ -30,7 +33,10 @@ async function loader({ request }: ILoader) {
     error = `HTTP error! Status: ${response.status}`;
   }
 
-  const { accessToken } = await response.json();
+  const { access_token: accessToken } = await response.json();
+
+  // Записываем в сессионное хранилище код-токен
+  if (accessToken) sessionStorage.setItem(code, accessToken);
 
   return { accessToken, error };
 }
