@@ -3,10 +3,6 @@ import Counter from 'src/components/delete_me/Counter';
 import { increment, decrement } from 'src/redux/counterSlice';
 import { RootState } from 'src/redux/store';
 
-interface IProps {
-  className?: string;
-}
-
 function CounterWindow() {
   const dispatch = useDispatch();
   const count = useSelector((state: RootState) => state.counter.value);
@@ -15,8 +11,8 @@ function CounterWindow() {
     <Counter
       value={count.toString()}
       onIncrement={() => dispatch(increment())}
-      onDecrement={() => dispatch(decrement())}
-      onIncrementAsync={() => dispatch(increment())}
+      onDecrement={() => dispatch({ type: 'counter/decrement' })}
+      onIncrementAsync={() => dispatch({ type: 'INCREMENT_ASYNC' })}
     />
   );
 }
