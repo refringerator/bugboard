@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'src/redux/counterSlice';
 
 import { windowsSelectors } from 'src/redux/windowsSlice';
+import { Outlet } from 'react-router-dom';
 import CounterWindow from '../CounterWindow';
 
 const windows = [
@@ -137,6 +138,8 @@ function MainScreen() {
           width={window.width ? window.width : undefined}
         />
       ))}
+
+      <Outlet />
 
       <WindowsControlPanel controlPanelElements={controlElements} />
     </>
