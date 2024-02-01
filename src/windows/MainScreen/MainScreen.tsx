@@ -9,6 +9,7 @@ import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'src/redux/counterSlice';
 
+import { windowsSelectors } from 'src/redux/windowsSlice';
 import CounterWindow from '../CounterWindow';
 
 const windows = [
@@ -24,6 +25,7 @@ function MainScreen() {
   const winId = useRef(3);
   const dispatch = useDispatch();
   const count = useSelector((state: RootState) => state.counter.value);
+  const windowsState = useSelector(windowsSelectors.get);
 
   const handleContextMenu = (event: MouseEvent) => {
     event.preventDefault(); // Prevent the browser's default context menu
@@ -38,6 +40,8 @@ function MainScreen() {
   const handleOpenCounterWindow = () => {
     const windowId = 'CounterWindow';
 
+    const ws = windowsState.find((w) => w.id === windowId);
+
     setWins([
       ...wins.filter((window) => window.id !== windowId),
       {
@@ -45,6 +49,7 @@ function MainScreen() {
         title: 'Counter Window',
         content: <CounterWindow />,
         zIndex: 5,
+        ...ws,
       },
     ]);
   };
@@ -117,7 +122,7 @@ function MainScreen() {
         />
       )}
 
-      {wins.map((window, index) => (
+      {wins.map((window: IWindowProps, index) => (
         <Window
           key={window.id}
           id={window.id}
@@ -126,8 +131,10 @@ function MainScreen() {
           zIndex={window.zIndex}
           onCloseClick={onCloseClick}
           onWindowFocus={onActive}
-          startX={100 + index * 25}
-          startY={100 + index * 25}
+          startX={window.startX ? window.startX : 100 + index * 25}
+          startY={window.startY ? window.startY : 100 + index * 25}
+          height={window.height ? window.height : undefined}
+          width={window.width ? window.width : undefined}
         />
       ))}
 
