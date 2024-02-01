@@ -17,7 +17,13 @@ import IssuesListWindowContent from '../IssuesListWindowContent';
 import IssueWindowContent from '../IssueWindowContent';
 
 const startWindows = [
-  { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
+  {
+    id: '1',
+    title: 'window 1',
+    content: 'content 1',
+    zIndex: 5,
+    icon: 'vite.svg',
+  },
   { id: '2', title: 'window 2', content: 'content 2', zIndex: 5 },
 ];
 
@@ -60,11 +66,11 @@ function MainScreen() {
     { id: '99', title: 'Выход', onClick: () => dispatch(increment()) },
   ];
 
-  const controlElements = [
-    { id: '1', title: 'Окно 1', icon: 'vite.svg' },
-    { id: '2', title: 'Окно 2' },
-    { id: '3', title: 'Окно 3', icon: 'bug.svg' },
-  ];
+  const controlElements = windows.map(({ id, title, icon }) => ({
+    id,
+    title,
+    icon,
+  }));
 
   return (
     <>
@@ -87,6 +93,7 @@ function MainScreen() {
           key={window.id}
           id={window.id}
           title={window.title}
+          icon={window.icon}
           content={window.content}
           zIndex={window.zIndex}
           onCloseClick={onWindowClose}

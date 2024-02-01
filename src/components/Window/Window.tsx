@@ -11,6 +11,7 @@ export interface IWindowProps {
   minHeight?: number;
   id: string;
   title: string;
+  icon?: string;
   content: string | React.ReactNode;
   zIndex?: number;
   startX?: number;
@@ -26,6 +27,7 @@ function Window({
   height = 150,
   id,
   title,
+  icon,
   content,
   zIndex,
   onCloseClick = () => {},
@@ -77,6 +79,7 @@ function Window({
         onMouseDown={handleMouseDownMove}
         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
       >
+        {icon && <img className="footer__icon" src={icon} alt="" />}
         <div>{title}</div>
         <div>
           <button
@@ -103,6 +106,7 @@ Window.defaultProps = {
   zIndex: 5,
   startX: 100,
   startY: 100,
+  icon: '',
   onCloseClick: () => {},
   onWindowFocus: () => {},
 };
