@@ -10,6 +10,9 @@
 
 // Деплой
 // https://supabase.com/docs/guides/functions/deploy
+
+// npx supabase functions deploy gh-auth-token --no-verify-jwt
+
 import { corsHeaders } from '../_shared/cors.ts'
 
 console.log("Hello from GH auth!");
@@ -37,9 +40,10 @@ Deno.serve(async (req) => {
   });
 
   const { access_token, scope, token_type } = await response.json();
+  const message = response.ok ? 'GH Result ok': `${response.status} ${response.statusText}`
 
   const data = {
-    message: `GH Result`,
+    message,
     access_token,
     scope,
     token_type,
