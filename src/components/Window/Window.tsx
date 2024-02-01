@@ -28,8 +28,8 @@ function Window({
   title,
   content,
   zIndex,
-  onCloseClick = (fid: string) => {},
-  onWindowFocus = (fid: string) => {},
+  onCloseClick = () => {},
+  onWindowFocus = () => {},
   startX,
   startY,
 }: IWindowProps) {
@@ -103,8 +103,8 @@ Window.defaultProps = {
   zIndex: 5,
   startX: 100,
   startY: 100,
-  onCloseClick: (id: string) => {},
-  onWindowFocus: (id: string) => {},
+  onCloseClick: () => {},
+  onWindowFocus: () => {},
 };
 
 export default Window;

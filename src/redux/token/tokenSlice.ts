@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from 'src/redux/store';
+// import { RootState } from 'src/redux/store';
 
 const tokenSlice = createSlice({
   name: 'token',
@@ -11,28 +11,28 @@ const tokenSlice = createSlice({
   },
 });
 
-const tokenActions = tokenSlice.actions;
+// const tokenActions = tokenSlice.actions;
 
-const resetTokenThunk = (): AppThunk => (dispatch) => {
-  dispatch(tokenActions.reset());
-  localStorage.removeItem('token');
-};
+// const resetTokenThunk = (): AppThunk => (dispatch) => {
+//   dispatch(tokenActions.reset());
+//   localStorage.removeItem('token');
+// };
 
-const setTokenThunk =
-  (token: string): AppThunk =>
-  (dispatch) => {
-    dispatch(tokenActions.set(token));
-    // const { token } = getState();
-    localStorage.setItem('token', token);
-  };
+// const setTokenThunk =
+//   (token: string): AppThunk =>
+//   (dispatch) => {
+//     dispatch(tokenActions.set(token));
+//     // const { token } = getState();
+//     localStorage.setItem('token', token);
+//   };
 
-export const tokenThunks = {
-  resetTokenThunk,
-  setTokenThunk,
-};
+// export const tokenThunks = {
+//   resetTokenThunk,
+//   // setTokenThunk,
+// };
 
-export const tokenSelectors = {
-  get: (state: RootState): RootState['token'] => state.token,
-};
+// export const tokenSelectors = {
+//   get: (state: RootState): RootState['token'] => state.token,
+// };
 
 export default tokenSlice.reducer;
