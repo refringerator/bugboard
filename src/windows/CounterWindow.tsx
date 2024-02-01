@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Counter from 'src/components/delete_me/Counter';
-import { increment, decrement } from 'src/redux/counterSlice';
-import { RootState } from 'src/redux/store';
+import { countSelectors, increment } from 'src/redux/counterSlice';
 
 function CounterWindow() {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => state.counter.value);
+  const { value: count } = useSelector(countSelectors.get);
 
   return (
     <Counter

@@ -18,7 +18,7 @@ function Counter({ value, onIncrement, onDecrement, onIncrementAsync }: Tlol) {
         Decrement
       </button>
       <hr />
-      <div>Clicked: {value} times</div>
+      <div>Current count state: {value}</div>
     </div>
   );
 }
