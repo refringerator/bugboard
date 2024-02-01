@@ -4,89 +4,36 @@ import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/W
 import Window, { IWindowProps } from 'src/components/Window/Window';
 import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 
-import { useRef, useState } from 'react';
 import type { RootState } from 'src/redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'src/redux/counterSlice';
 
-import { windowsSelectors } from 'src/redux/windowsSlice';
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
+import useWindows from 'src/hooks/useWindows';
 import CounterWindowContent from '../CounterWindowContent';
 import SettingsWindowContent from '../SettingsWindowContent';
 import IssuesListWindowContent from '../IssuesListWindowContent';
 import IssueWindowContent from '../IssueWindowContent';
 
-const windows = [
+const startWindows = [
   { id: '1', title: 'window 1', content: 'content 1', zIndex: 5 },
   { id: '2', title: 'window 2', content: 'content 2', zIndex: 5 },
 ];
 
 function MainScreen() {
-  const [wins, setWins] = useState<IWindowProps[]>(windows);
-  const [zIndex, setZIndex] = useState(10);
   const { cm, cmCoords, hideMenu } = useContextMenu();
-  const winId = useRef(3);
+  const {
+    openWindow,
+    genNewWindows,
+    onWindowClose,
+    closeAllWindows,
+    onActive,
+    windows,
+  } = useWindows({ windows: startWindows });
+
   const dispatch = useDispatch();
   const count = useSelector((state: RootState) => state.counter.value);
-  const windowsState = useSelector(windowsSelectors.get);
-
-  const openWindow = (
-    OWindow: React.FC & { windowId: string; title: string }
-  ) => {
-    const { windowId, title } = OWindow;
-
-    const ws = windowsState.find((w) => w.id === windowId);
-
-    setWins([
-      ...wins.filter((window) => window.id !== windowId),
-      {
-        id: windowId,
-        title,
-        content: <OWindow />,
-        zIndex,
-        ...ws,
-      },
-    ]);
-    setZIndex((val) => val + 1);
-  };
-
-  const handleOpenCounterWindow = () => {
-    openWindow(CounterWindowContent);
-  };
-
-  const onClose = () => {
-    setWins([]);
-    // console.log('Close button clicked');
-  };
-
-  const onCloseClick = (windowId: string) => {
-    setWins(wins.filter((window) => window.id !== windowId));
-  };
-
-  const onActive = (windowId: string) => {
-    const newWins = wins.map((curWindow) => ({
-      ...curWindow,
-      zIndex: curWindow.id === windowId ? zIndex : curWindow.zIndex,
-    }));
-    setWins(newWins);
-    setZIndex((val) => val + 1);
-  };
-
-  const genNewWindows = () => {
-    winId.current += 1;
-    setWins([
-      ...wins,
-      {
-        id: `${winId.current}`,
-        title: `window ${winId.current}`,
-        content: `content ${winId.current}`,
-        zIndex,
-      },
-    ]);
-
-    setZIndex((val) => val + 1);
-  };
 
   const menuElements = [
     {
@@ -124,7 +71,7 @@ function MainScreen() {
       <MainHeader
         title={`BugBoard ${count}`}
         icon="bug.svg"
-        onClick={onClose}
+        onClick={closeAllWindows}
       />
       <MainMenu menuElements={menuElements} />
       {cm && (
@@ -135,14 +82,14 @@ function MainScreen() {
         />
       )}
 
-      {wins.map((window: IWindowProps, index) => (
+      {windows.map((window: IWindowProps, index) => (
         <Window
           key={window.id}
           id={window.id}
           title={window.title}
           content={window.content}
           zIndex={window.zIndex}
-          onCloseClick={onCloseClick}
+          onCloseClick={onWindowClose}
           onWindowFocus={onActive}
           startX={window.startX ? window.startX : 100 + index * 25}
           startY={window.startY ? window.startY : 100 + index * 25}
