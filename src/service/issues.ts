@@ -3,8 +3,12 @@ import { api } from './api';
 
 export interface Issue {
   id: number;
-  name: string;
-  fetched_at: string;
+  number: number;
+  title: string;
+  url: string;
+  state: string;
+  created_at: string;
+  updated_at: string;
 }
 
 type IssuesResponse = Issue[];
@@ -16,7 +20,7 @@ export interface User {
   phone: string;
 }
 
-export const postsApi = api.injectEndpoints({
+export const issuesApi = api.injectEndpoints({
   endpoints: (build) => ({
     // login: build.mutation<{ token: string; user: User }, any>({
     //   query: (credentials: any) => ({
@@ -31,11 +35,11 @@ export const postsApi = api.injectEndpoints({
     //     },
     //   },
     // }),
-    getPosts: build.query<IssuesResponse, void>({
-      query: () => ({ url: 'posts' }),
+    getIssues: build.query<IssuesResponse, void>({
+      query: () => ({ url: 'repos/refringerator/bugboard/issues' }),
       providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: 'Posts', id }) as const),
-        { type: 'Posts' as const, id: 'LIST' },
+        ...result.map(({ id }) => ({ type: 'Issues', id }) as const),
+        { type: 'Issues' as const, id: 'LIST' },
       ],
     }),
     // addPost: build.mutation<Issue, Partial<Issue>>({
@@ -46,9 +50,9 @@ export const postsApi = api.injectEndpoints({
     //   }),
     //   invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
     // }),
-    getPost: build.query<Issue, number>({
-      query: (id) => `posts/${id}`,
-      providesTags: (_post, _err, id) => [{ type: 'Posts', id }],
+    getIssue: build.query<Issue, number>({
+      query: (id) => `repos/refringerator/bugboard/issues/${id}`,
+      providesTags: (_post, _err, id) => [{ type: 'Issues', id }],
     }),
     // updatePost: build.mutation<Issue, Partial<Issue>>({
     //   query(data) {
@@ -79,14 +83,14 @@ export const postsApi = api.injectEndpoints({
 export const {
   //   useAddPostMutation,
   //   useDeletePostMutation,
-  useGetPostQuery,
-  useGetPostsQuery,
+  useGetIssueQuery,
+  useGetIssuesQuery,
   //   useLoginMutation,
   //   useUpdatePostMutation,
   //   useGetErrorProneQuery,
-} = postsApi;
+} = issuesApi;
 
 export const {
   //   endpoints: { login, getPost },
-  endpoints: { getPost },
-} = postsApi;
+  endpoints: { getIssue },
+} = issuesApi;

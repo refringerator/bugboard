@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'src/redux/store';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: '/',
+  baseUrl: 'https://api.github.com/',
   prepareHeaders: (headers, { getState }) => {
     const { token } = { token: undefined }; // = (getState() as RootState).auth.token;
 
@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 });
 
 /**
  * Create a base API to inject endpoints into elsewhere.
@@ -39,7 +39,7 @@ export const api = createApi({
    * Tag types must be defined in the original API definition
    * for any tags that would be provided by injected endpoints
    */
-  tagTypes: ['Time', 'Posts', 'Counter'],
+  tagTypes: ['Time', 'Issues', 'Counter'],
   /**
    * This api has endpoints injected in adjacent files,
    * which is why no endpoints are shown below.

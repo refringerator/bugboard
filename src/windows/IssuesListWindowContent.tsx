@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Issue, useGetPostsQuery } from 'src/service/issues';
+import { Issue, useGetIssuesQuery } from 'src/service/issues';
 
 function PostListItem({
-  data: { name, id },
+  data: { title, number },
   onSelect,
 }: {
   data: Issue;
@@ -10,30 +10,30 @@ function PostListItem({
 }) {
   return (
     <li>
-      <a href="#" onClick={() => onSelect(id)}>
-        {name}
+      <a href="#" onClick={() => onSelect(number)}>
+        {title}
       </a>
     </li>
   );
 }
 function IssuesListWindowContent() {
-  const { data: posts, isLoading } = useGetPostsQuery();
+  const { data: issues, isLoading } = useGetIssuesQuery();
 
   if (isLoading) {
     return <div>Loading</div>;
   }
 
-  if (!posts) {
+  if (!issues) {
     return <div>No issues :(</div>;
   }
 
   return (
     <div>
-      {posts.map((post) => (
+      {issues.map((issue) => (
         <PostListItem
-          key={post.id}
-          data={post}
-          onSelect={(id) => console.log(`/posts/${id}`)}
+          key={issue.id}
+          data={issue}
+          onSelect={(id) => console.log(`/lol/${id}`)}
         />
       ))}
     </div>
