@@ -7,32 +7,34 @@ interface IUseWindows {
   windows: IWindowProps[];
 }
 
+export interface IOpeningWindow extends React.FC {
+  windowId: string;
+  title: string;
+  minHeight?: number;
+  minWidth?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: Record<string, any>;
+}
+
 function useWindows({ windows }: IUseWindows) {
   const [wins, setWins] = useState<IWindowProps[]>(windows);
   const [zIndex, setZIndex] = useState(10);
   const winId = useRef(3);
   const windowsState = useSelector(windowsSelectors.get);
 
-  const openWindow = (
-    OpeningWindow: React.FC & {
-      windowId: string;
-      title: string;
-      minHeight?: number;
-      minWidth?: number;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      params?: Record<string, any>;
-    }
-  ) => {
+  const openWindow = (OpeningWindow: IOpeningWindow) => {
     const { windowId, title, minHeight, minWidth, params } = OpeningWindow;
 
-    const ws = windowsState.find((w) => w.id === windowId);
+    const owId = params?.id ? params?.id : windowId;
 
-    console.log(`Открываем окно ${windowId}`);
+    const ws = windowsState.find((w) => w.id === owId);
+
+    console.log(`Открываем окно ${owId}`);
 
     setWins([
-      ...wins.filter((window) => window.id !== windowId),
+      ...wins.filter((window) => window.id !== owId),
       {
-        id: windowId,
+        id: owId,
         title,
         // eslint-disable-next-line react/jsx-props-no-spreading
         content: <OpeningWindow {...params} />,

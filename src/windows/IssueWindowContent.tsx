@@ -1,12 +1,16 @@
+import { useContext } from 'react';
 import IssueForm, { TFormData } from 'src/components/IssueForm';
+import WindowsContext from 'src/context/WindowsContext';
 import { useGetIssueQuery } from 'src/service/issues';
 
 interface IIssueWindow {
-  onClose?: () => void;
+  // onClose?: () => void;
   number?: number;
+  windowId?: string;
 }
-function IssueWindowContent({ number = 4, onClose = () => {} }: IIssueWindow) {
+function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
   const { data: issue, isFetching, isLoading } = useGetIssueQuery(number);
+  const { closeWindow } = useContext(WindowsContext);
 
   const isUpdating = false;
 
@@ -29,16 +33,20 @@ function IssueWindowContent({ number = 4, onClose = () => {} }: IIssueWindow) {
     return <div>Ошибка Не найдена задача!</div>;
   }
 
+  const onClose = () => {
+    if (windowId) closeWindow(windowId);
+  };
+
   const { body_text: description, title } = issue;
 
-  console.log({ issue });
+  // console.log({ issue });
 
   return (
     <div>
       <IssueForm
         description={description}
         title={title}
-        // onCancel={onClose}
+        onCancel={onClose}
         onUpdate={onUpdate}
         loading={isUpdating}
       />
@@ -48,7 +56,7 @@ function IssueWindowContent({ number = 4, onClose = () => {} }: IIssueWindow) {
 
 IssueWindowContent.defaultProps = {
   number: 4,
-  onClose: () => {},
+  windowId: '',
 };
 
 IssueWindowContent.windowId = 'IssueWindow';

@@ -20,8 +20,10 @@ function IssuesListWindowContent() {
     console.log('open issue', issueNumber);
     const issueWindow = IssueWindowContent;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (issueWindow as any).params = { number: issueNumber };
-    issueWindow.windowId = `${issueWindow.windowId}_${issueNumber}`;
+    (issueWindow as any).params = {
+      number: issueNumber,
+      id: `${issueWindow.windowId}_${issueNumber}`,
+    };
     issueWindow.title = `Задача #${issueNumber}`;
     openWindow(issueWindow);
   };
