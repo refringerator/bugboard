@@ -13,7 +13,10 @@ function useResizeElement({
   width = 200,
   height = 150,
 }: MainMenuProps) {
-  const [winSize, setWinSize] = useState({ width, height });
+  const [winSize, setWinSize] = useState({
+    width: Math.max(width, minWidth),
+    height: Math.max(height, minHeight),
+  });
   const isResizing = useRef(false);
   const iSize = useRef<{ height: number; width: number; x: number; y: number }>(
     { height: 0, width: 0, x: 0, y: 0 }

@@ -14,9 +14,14 @@ function useWindows({ windows }: IUseWindows) {
   const windowsState = useSelector(windowsSelectors.get);
 
   const openWindow = (
-    OpeningWindow: React.FC & { windowId: string; title: string }
+    OpeningWindow: React.FC & {
+      windowId: string;
+      title: string;
+      minHeight?: number;
+      minWidth?: number;
+    }
   ) => {
-    const { windowId, title } = OpeningWindow;
+    const { windowId, title, minHeight, minWidth } = OpeningWindow;
 
     const ws = windowsState.find((w) => w.id === windowId);
 
@@ -27,6 +32,8 @@ function useWindows({ windows }: IUseWindows) {
         title,
         content: <OpeningWindow />,
         zIndex,
+        minHeight,
+        minWidth,
         ...ws,
       },
     ]);

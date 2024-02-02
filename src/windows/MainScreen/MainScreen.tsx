@@ -102,6 +102,8 @@ function MainScreen() {
           startY={window.startY ? window.startY : 100 + index * 25}
           height={window.height ? window.height : undefined}
           width={window.width ? window.width : undefined}
+          minHeight={window?.minHeight}
+          minWidth={window?.minWidth}
         />
       ))}
 

@@ -38,12 +38,14 @@ function IssuesListWindowContent() {
         />
       ))} */}
 
-      <IssuesTable data={issues} />
+      <IssuesTable data={issues.map((i) => ({ ...i, key: i.id }))} />
     </div>
   );
 }
 
 IssuesListWindowContent.windowId = 'IssuesListWindow';
 IssuesListWindowContent.title = 'Issues list';
+IssuesListWindowContent.minHeight = 350;
+IssuesListWindowContent.minWidth = 630;
 
 export default IssuesListWindowContent;
