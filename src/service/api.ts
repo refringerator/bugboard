@@ -11,7 +11,7 @@ const baseQuery = fetchBaseQuery({
     headers.set('Accept', `application/vnd.github.text+json`);
 
     if (token) {
-      headers.set('authentication', `Bearer ${token}`);
+      headers.set('Authorization', `Bearer ${token}`);
     }
     return headers;
   },

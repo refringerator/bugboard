@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setToken } from 'src/redux/authSlice';
+import { useUserMutation } from 'src/service/issues';
 
 interface ILoader {
   request: Request;
@@ -18,6 +22,7 @@ async function loader({ request }: ILoader) {
 
   // тут выполнить запрос на лямбду для получения токена
   const response = await fetch(
+    // TODO: положить в переменные окружения
     'https://qzdcusvmotytjzoctaga.supabase.co/functions/v1/gh-auth-token',
     {
       method: 'POST',
@@ -47,6 +52,27 @@ function OAuthCallback() {
     error?: string;
   };
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [user] = useUserMutation();
+
+  useEffect(() => {
+    const fetchData = () => {
+      if (accessToken) {
+        console.log('Устанавливаем токен');
+        dispatch(setToken(accessToken));
+        user({});
+      } else {
+        console.log('Еще нет токена');
+      }
+    };
+
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   if (navigation.state === 'loading') {
     return (
@@ -69,7 +95,7 @@ function OAuthCallback() {
     <div>
       <p>
         Получен токен
-        {accessToken}
+        {` ${accessToken.substring(0, 10)}**********`}
       </p>
     </div>
   );
