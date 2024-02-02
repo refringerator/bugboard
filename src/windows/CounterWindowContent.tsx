@@ -17,6 +17,8 @@ function CounterWindowContent() {
 }
 
 CounterWindowContent.windowId = 'CounterWindow';
-CounterWindowContent.title = 'Counter Window';
+CounterWindowContent.title = 'Пример счетчика';
+CounterWindowContent.minHeight = 200;
+CounterWindowContent.minWidth = 150;
 
 export default CounterWindowContent;

@@ -2,21 +2,21 @@
 import IssuesTable from 'src/components/IssuesTable';
 import { Issue, useGetIssuesQuery } from 'src/service/issues';
 
-function PostListItem({
-  data: { title, number },
-  onSelect,
-}: {
-  data: Issue;
-  onSelect: (id: number) => void;
-}) {
-  return (
-    <li>
-      <a href="#" onClick={() => onSelect(number)}>
-        {title}
-      </a>
-    </li>
-  );
-}
+// function PostListItem({
+//   data: { title, number },
+//   onSelect,
+// }: {
+//   data: Issue;
+//   onSelect: (id: number) => void;
+// }) {
+//   return (
+//     <li>
+//       <a href="#" onClick={() => onSelect(number)}>
+//         {title}
+//       </a>
+//     </li>
+//   );
+// }
 function IssuesListWindowContent() {
   const { data: issues, isLoading } = useGetIssuesQuery();
 
@@ -44,7 +44,7 @@ function IssuesListWindowContent() {
 }
 
 IssuesListWindowContent.windowId = 'IssuesListWindow';
-IssuesListWindowContent.title = 'Issues list';
+IssuesListWindowContent.title = 'Список задач';
 IssuesListWindowContent.minHeight = 350;
 IssuesListWindowContent.minWidth = 630;
 

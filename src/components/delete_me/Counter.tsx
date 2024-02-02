@@ -9,16 +9,16 @@ function Counter({ value, onIncrement, onDecrement, onIncrementAsync }: Tlol) {
   return (
     <div>
       <button type="button" onClick={onIncrementAsync}>
-        Increment after 1 second
+        Уменьшить через секунду
       </button>{' '}
       <button type="button" onClick={onIncrement}>
-        Increment
+        Прибавить
       </button>{' '}
       <button type="button" onClick={onDecrement}>
-        Decrement
+        Убавить
       </button>
       <hr />
-      <div>Current count state: {value}</div>
+      <div>Текущее значение счетчика: {value}</div>
     </div>
   );
 }

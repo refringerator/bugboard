@@ -5,6 +5,6 @@ function SettingsWindowContent() {
 }
 
 SettingsWindowContent.windowId = 'SettingWindow';
-SettingsWindowContent.title = 'Settings';
+SettingsWindowContent.title = 'Настройки';
 
 export default SettingsWindowContent;
