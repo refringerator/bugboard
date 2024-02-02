@@ -1,23 +1,12 @@
+import { useContext } from 'react';
 import IssuesTable from 'src/components/IssuesTable';
+import WindowsContext from 'src/context/WindowsContext';
 import { Issue, useGetIssuesQuery } from 'src/service/issues';
+import IssueWindowContent from './IssueWindowContent';
 
-// function PostListItem({
-//   data: { title, number },
-//   onSelect,
-// }: {
-//   data: Issue;
-//   onSelect: (id: number) => void;
-// }) {
-//   return (
-//     <li>
-//       <a href="#" onClick={() => onSelect(number)}>
-//         {title}
-//       </a>
-//     </li>
-//   );
-// }
 function IssuesListWindowContent() {
   const { data: issues, isLoading } = useGetIssuesQuery();
+  const { openWindow } = useContext(WindowsContext);
 
   if (isLoading) {
     return <div>Загрузка...</div>;
@@ -29,18 +18,16 @@ function IssuesListWindowContent() {
 
   const openIssue = (issueNumber: number) => {
     console.log('open issue', issueNumber);
+    const issueWindow = IssueWindowContent;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (issueWindow as any).params = { number: issueNumber };
+    issueWindow.windowId = `${issueWindow.windowId}_${issueNumber}`;
+    issueWindow.title = `Задача #${issueNumber}`;
+    openWindow(issueWindow);
   };
 
   return (
     <div style={{ overflow: 'auto', overflowY: 'auto' }}>
-      {/* {issues.map((issue) => (
-        <PostListItem
-          key={issue.id}
-          data={issue}
-          onSelect={(id) => console.log(`/lol/${id}`)}
-        />
-      ))} */}
-
       <IssuesTable data={issues} onDoubleRowClick={openIssue} />
     </div>
   );

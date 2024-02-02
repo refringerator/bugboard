@@ -27,6 +27,8 @@ function useWindows({ windows }: IUseWindows) {
 
     const ws = windowsState.find((w) => w.id === windowId);
 
+    console.log(`Открываем окно ${windowId}`);
+
     setWins([
       ...wins.filter((window) => window.id !== windowId),
       {
