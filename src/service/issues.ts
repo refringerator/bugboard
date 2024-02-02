@@ -38,7 +38,7 @@ export const issuesApi = api.injectEndpoints({
     getIssues: build.query<IssuesResponse, void>({
       query: () => ({ url: 'repos/refringerator/bugboard/issues' }),
       providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: 'Issues', id }) as const),
+        ...result.map(({ number }) => ({ type: 'Issues', number }) as const),
         { type: 'Issues' as const, id: 'LIST' },
       ],
     }),
@@ -54,17 +54,17 @@ export const issuesApi = api.injectEndpoints({
       query: (number) => `repos/refringerator/bugboard/issues/${number}`,
       providesTags: (_issue, _err, number) => [{ type: 'Issues', number }],
     }),
-    // updatePost: build.mutation<Issue, Partial<Issue>>({
-    //   query(data) {
-    //     const { id, ...body } = data;
-    //     return {
-    //       url: `posts/${id}`,
-    //       method: 'PUT',
-    //       body,
-    //     };
-    //   },
-    //   invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
-    // }),
+    updateIssue: build.mutation<Issue, Partial<Issue>>({
+      query(data) {
+        const { number, ...body } = data;
+        return {
+          url: `repos/refringerator/bugboard/issues/${number}`,
+          method: 'PATCH',
+          body,
+        };
+      },
+      invalidatesTags: (issue) => [{ type: 'Issues', number: issue?.number }],
+    }),
     // deletePost: build.mutation<{ success: boolean; id: number }, number>({
     //   query(id) {
     //     return {
@@ -86,7 +86,7 @@ export const {
   useGetIssueQuery,
   useGetIssuesQuery,
   useUserMutation,
-  //   useUpdatePostMutation,
+  useUpdateIssueMutation,
   //   useGetErrorProneQuery,
 } = issuesApi;
 

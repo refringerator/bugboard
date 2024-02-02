@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import IssueForm from 'src/components/IssueForm';
+import IssueForm, { TFormData } from 'src/components/IssueForm';
 import WindowsContext from 'src/context/WindowsContext';
-import { useGetIssueQuery } from 'src/service/issues';
+import { useGetIssueQuery, useUpdateIssueMutation } from 'src/service/issues';
 
 interface IIssueWindow {
   // onClose?: () => void;
@@ -11,19 +11,22 @@ interface IIssueWindow {
 function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
   const { data: issue, isLoading } = useGetIssueQuery(number);
   const { closeWindow } = useContext(WindowsContext);
+  const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
 
-  const isUpdating = false;
+  // const isUpdating = false;
 
-  const onUpdate = () => console.log('yay');
-
-  // conts onUpdate = (name) =>
-  // updatePost({ id, name })
-  //   .then((result) => {
-  //     // handle the success!
-  //     console.log('Update Result', result)
-  //     setIsEditing(false)
-  //   })
-  //   .catch((error) => console.error('Update Error', error))
+  const onUpdate = (formData: TFormData) =>
+    updateIssue({
+      number,
+      title: formData.title,
+      body_text: formData.description,
+    })
+      .then((result) => {
+        // handle the success!
+        console.log('Update Result', result);
+        // setIsEditing(false);
+      })
+      .catch((error) => console.error('Update Error', error));
 
   if (isLoading) {
     return <div>Загрузка...</div>;
