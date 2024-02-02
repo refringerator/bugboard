@@ -1,18 +1,18 @@
 import React from 'react';
 
-type TFormData = { title: string; description: string };
+export type TFormData = { title: string; description: string };
 
 function IssueForm({
   title,
   description,
   onUpdate,
-  onCancel,
+  onCancel = () => {},
   loading = false,
 }: {
   title: string;
   description: string;
   onUpdate: (formData: TFormData) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   loading?: boolean;
 }) {
   const [formData, setFormData] = React.useState({ title, description });
@@ -47,10 +47,10 @@ function IssueForm({
         />
         <div>
           <button type="submit" disabled={loading}>
-            {loading ? 'Updating...' : 'Update'}
+            {loading ? 'Updating...' : 'OK'}
           </button>
           <button type="button" onClick={handleCancel} disabled={loading}>
-            Cancel
+            Отмена
           </button>
         </div>
       </form>
@@ -60,6 +60,7 @@ function IssueForm({
 
 IssueForm.defaultProps = {
   loading: false,
+  onCancel: () => {},
 };
 
 export default IssueForm;
