@@ -19,9 +19,11 @@ function useWindows({ windows }: IUseWindows) {
       title: string;
       minHeight?: number;
       minWidth?: number;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      params?: Record<string, any>;
     }
   ) => {
-    const { windowId, title, minHeight, minWidth } = OpeningWindow;
+    const { windowId, title, minHeight, minWidth, params } = OpeningWindow;
 
     const ws = windowsState.find((w) => w.id === windowId);
 
@@ -30,7 +32,8 @@ function useWindows({ windows }: IUseWindows) {
       {
         id: windowId,
         title,
-        content: <OpeningWindow />,
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        content: <OpeningWindow {...params} />,
         zIndex,
         minHeight,
         minWidth,
