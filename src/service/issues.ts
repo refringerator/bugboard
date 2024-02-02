@@ -1,6 +1,12 @@
-import { retry } from '@reduxjs/toolkit/query/react';
+// import { retry } from '@reduxjs/toolkit/query/react';
 import { api } from './api';
 
+export interface User {
+  login: string;
+  id: number;
+}
+
+// TODO: добавить в задачу самого пользователя
 export interface Issue {
   id: number;
   number: number;
@@ -14,28 +20,21 @@ export interface Issue {
 
 type IssuesResponse = Issue[];
 
-export interface User {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-}
-
 export const issuesApi = api.injectEndpoints({
   endpoints: (build) => ({
-    // login: build.mutation<{ token: string; user: User }, any>({
-    //   query: (credentials: any) => ({
-    //     url: 'login',
-    //     method: 'POST',
-    //     body: credentials,
-    //   }),
-    //   extraOptions: {
-    //     backoff: () => {
-    //       // We intentionally error once on login, and this breaks out of retrying. The next login attempt will succeed.
-    //       retry.fail({ fake: 'error' });
-    //     },
-    //   },
-    // }),
+    // TODO: нужна ли тут мутация для ртк-квери?
+    user: build.mutation({
+      query: () => ({
+        url: 'user',
+        method: 'GET',
+      }),
+      // extraOptions: {
+      //   backoff: () => {
+      //     // We intentionally error once on login, and this breaks out of retrying. The next login attempt will succeed.
+      //     retry.fail({ fake: 'error' });
+      //   },
+      // },
+    }),
     getIssues: build.query<IssuesResponse, void>({
       query: () => ({ url: 'repos/refringerator/bugboard/issues' }),
       providesTags: (result = []) => [
@@ -86,12 +85,12 @@ export const {
   //   useDeletePostMutation,
   useGetIssueQuery,
   useGetIssuesQuery,
-  //   useLoginMutation,
+  useUserMutation,
   //   useUpdatePostMutation,
   //   useGetErrorProneQuery,
 } = issuesApi;
 
 export const {
   //   endpoints: { login, getPost },
-  endpoints: { getIssue },
+  endpoints: { getIssue, user },
 } = issuesApi;
