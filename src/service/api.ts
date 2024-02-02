@@ -5,7 +5,7 @@ import { RootState } from 'src/redux/store';
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.github.com/',
   prepareHeaders: (headers, { getState }) => {
-    const { token } = { token: undefined }; // = (getState() as RootState).auth.token;
+    const { token } = (getState() as RootState).auth;
 
     headers.set('X-GitHub-Api-Version', `2022-11-28`);
     headers.set('Accept', `application/vnd.github.text+json`);
