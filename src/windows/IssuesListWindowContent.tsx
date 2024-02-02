@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import IssuesTable from 'src/components/IssuesTable';
 import { Issue, useGetIssuesQuery } from 'src/service/issues';
 
