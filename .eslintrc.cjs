@@ -32,7 +32,14 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
-    '@typescript-eslint/no-unused-vars': 'warn',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_|[iI]gnored',
+        varsIgnorePattern: '^_|[iI]gnored',
+      },
+    ],
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-param-reassign': [
       'error',
