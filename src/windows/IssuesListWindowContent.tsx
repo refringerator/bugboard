@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import IssuesTable from 'src/components/IssuesTable';
 import { Issue, useGetIssuesQuery } from 'src/service/issues';
 
 function PostListItem({
@@ -20,22 +21,24 @@ function IssuesListWindowContent() {
   const { data: issues, isLoading } = useGetIssuesQuery();
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <div>Загрузка...</div>;
   }
 
   if (!issues) {
-    return <div>No issues :(</div>;
+    return <div>Нет ни одной задачи :(</div>;
   }
 
   return (
-    <div>
-      {issues.map((issue) => (
+    <div style={{ overflow: 'auto', overflowY: 'auto' }}>
+      {/* {issues.map((issue) => (
         <PostListItem
           key={issue.id}
           data={issue}
           onSelect={(id) => console.log(`/lol/${id}`)}
         />
-      ))}
+      ))} */}
+
+      <IssuesTable data={issues} />
     </div>
   );
 }
