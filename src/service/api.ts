@@ -7,6 +7,9 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const { token } = { token: undefined }; // = (getState() as RootState).auth.token;
 
+    headers.set('X-GitHub-Api-Version', `2022-11-28`);
+    headers.set('Accept', `application/vnd.github.text+json`);
+
     if (token) {
       headers.set('authentication', `Bearer ${token}`);
     }

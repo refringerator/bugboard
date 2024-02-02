@@ -1,14 +1,17 @@
 import IssueForm, { TFormData } from 'src/components/IssueForm';
+import { useGetIssueQuery } from 'src/service/issues';
 
 interface IIssueWindow {
   onClose?: () => void;
+  number?: number;
 }
-function IssueWindowContent({ onClose = () => {} }: IIssueWindow) {
-  const description = 'Описание';
-  const title = 'titel';
+function IssueWindowContent({ number = 4, onClose = () => {} }: IIssueWindow) {
+  const { data: issue, isFetching, isLoading } = useGetIssueQuery(number);
+
   const isUpdating = false;
 
   const onUpdate = () => console.log('yay');
+
   // conts onUpdate = (name) =>
   // updatePost({ id, name })
   //   .then((result) => {
@@ -17,6 +20,18 @@ function IssueWindowContent({ onClose = () => {} }: IIssueWindow) {
   //     setIsEditing(false)
   //   })
   //   .catch((error) => console.error('Update Error', error))
+
+  if (isLoading) {
+    return <div>Загрузка...</div>;
+  }
+
+  if (!issue) {
+    return <div>Ошибка Не найдена задача!</div>;
+  }
+
+  const { body_text: description, title } = issue;
+
+  console.log({ issue });
 
   return (
     <div>
@@ -32,6 +47,7 @@ function IssueWindowContent({ onClose = () => {} }: IIssueWindow) {
 }
 
 IssueWindowContent.defaultProps = {
+  number: 4,
   onClose: () => {},
 };
 

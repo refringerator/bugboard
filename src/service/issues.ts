@@ -5,6 +5,7 @@ export interface Issue {
   id: number;
   number: number;
   title: string;
+  body_text: string;
   url: string;
   state: string;
   created_at: string;
@@ -51,8 +52,8 @@ export const issuesApi = api.injectEndpoints({
     //   invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
     // }),
     getIssue: build.query<Issue, number>({
-      query: (id) => `repos/refringerator/bugboard/issues/${id}`,
-      providesTags: (_post, _err, id) => [{ type: 'Issues', id }],
+      query: (number) => `repos/refringerator/bugboard/issues/${number}`,
+      providesTags: (_issue, _err, number) => [{ type: 'Issues', number }],
     }),
     // updatePost: build.mutation<Issue, Partial<Issue>>({
     //   query(data) {
