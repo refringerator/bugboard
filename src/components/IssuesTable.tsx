@@ -57,17 +57,41 @@ const onChange: TableProps<Issue>['onChange'] = (
 
 interface IIssueTable {
   data: Issue[];
+  onDoubleRowClick?: (issueNumber: number) => void;
 }
 
-function IssuesTable({ data }: IIssueTable) {
+function IssuesTable({ data, onDoubleRowClick = () => {} }: IIssueTable) {
+  const handleRowDoubleClick = (
+    record: Issue,
+    index: number | undefined,
+    event: React.MouseEvent
+  ) => {
+    // console.log('Double clicked on row:', record, index, event);
+    onDoubleRowClick(record.number);
+  };
+
   return (
     <Table
       size="small"
       columns={columns}
       dataSource={data}
       onChange={onChange}
+      rowKey="id"
+      onRow={(record, rowIndex) => {
+        return {
+          // onClick: (event) => {}, // click row
+          onDoubleClick: (event) =>
+            handleRowDoubleClick(record, rowIndex, event), // double click row
+          // onContextMenu: (event) => {}, // right button click row
+          // onMouseEnter: (event) => {}, // mouse enter row
+          // onMouseLeave: (event) => {}, // mouse leave row
+        };
+      }}
     />
   );
 }
 
+IssuesTable.defaultProps = {
+  onDoubleRowClick: (issueNumber: number) => {},
+};
 export default IssuesTable;

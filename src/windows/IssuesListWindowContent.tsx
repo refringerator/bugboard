@@ -27,6 +27,10 @@ function IssuesListWindowContent() {
     return <div>Нет ни одной задачи :(</div>;
   }
 
+  const openIssue = (issueNumber: number) => {
+    console.log('open issue', issueNumber);
+  };
+
   return (
     <div style={{ overflow: 'auto', overflowY: 'auto' }}>
       {/* {issues.map((issue) => (
@@ -37,7 +41,7 @@ function IssuesListWindowContent() {
         />
       ))} */}
 
-      <IssuesTable data={issues.map((i) => ({ ...i, key: i.id }))} />
+      <IssuesTable data={issues} onDoubleRowClick={openIssue} />
     </div>
   );
 }
