@@ -11,6 +11,8 @@ import { increment } from 'src/redux/counterSlice';
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
 import useWindows from 'src/hooks/useWindows';
+import WindowsContext from 'src/context/WindowsContext';
+import { useMemo } from 'react';
 import CounterWindowContent from '../CounterWindowContent';
 import SettingsWindowContent from '../SettingsWindowContent';
 import IssuesListWindowContent from '../IssuesListWindowContent';
@@ -78,7 +80,15 @@ function MainScreen() {
   ];
 
   return (
-    <>
+    <WindowsContext.Provider
+      value={useMemo(
+        () => ({
+          closeWindow: onWindowClose,
+          openWindow,
+        }),
+        [openWindow, onWindowClose]
+      )}
+    >
       <MainHeader
         title={`BugBoard ${count}`}
         icon="bug.svg"
@@ -121,7 +131,7 @@ function MainScreen() {
           icon,
         }))}
       />
-    </>
+    </WindowsContext.Provider>
   );
 }
 
