@@ -12,6 +12,7 @@ export interface Issue {
   number: number;
   title: string;
   body_text: string;
+  body: string;
   url: string;
   state: string;
   created_at: string;

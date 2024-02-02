@@ -19,7 +19,7 @@ function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
     updateIssue({
       number,
       title: formData.title,
-      body_text: formData.description,
+      body: formData.description,
     })
       .then((result) => {
         // handle the success!
