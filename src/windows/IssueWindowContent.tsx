@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import IssueForm, { TFormData } from 'src/components/IssueForm';
+import IssueForm from 'src/components/IssueForm';
 import WindowsContext from 'src/context/WindowsContext';
 import { useGetIssueQuery } from 'src/service/issues';
 
@@ -9,7 +9,7 @@ interface IIssueWindow {
   windowId?: string;
 }
 function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
-  const { data: issue, isFetching, isLoading } = useGetIssueQuery(number);
+  const { data: issue, isLoading } = useGetIssueQuery(number);
   const { closeWindow } = useContext(WindowsContext);
 
   const isUpdating = false;

@@ -63,8 +63,8 @@ interface IIssueTable {
 function IssuesTable({ data, onDoubleRowClick = () => {} }: IIssueTable) {
   const handleRowDoubleClick = (
     record: Issue,
-    index: number | undefined,
-    event: React.MouseEvent
+    _index: number | undefined,
+    _event: React.MouseEvent
   ) => {
     // console.log('Double clicked on row:', record, index, event);
     onDoubleRowClick(record.number);
@@ -92,6 +92,6 @@ function IssuesTable({ data, onDoubleRowClick = () => {} }: IIssueTable) {
 }
 
 IssuesTable.defaultProps = {
-  onDoubleRowClick: (issueNumber: number) => {},
+  onDoubleRowClick: (_issueNumber: number) => {},
 };
 export default IssuesTable;
