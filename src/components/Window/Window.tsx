@@ -3,7 +3,7 @@ import useResizeElement from 'src/hooks/useResizeElement';
 import useMoveElement from 'src/hooks/useMoveElement';
 import { useDispatch } from 'react-redux';
 import { setWindowState } from 'src/redux/windowsSlice';
-import { ReactElement, cloneElement, isValidElement } from 'react';
+import { ReactElement, cloneElement, isValidElement, useMemo } from 'react';
 
 export interface IWindowProps {
   width?: number;
@@ -62,9 +62,13 @@ function Window({
     onCloseClick(id);
   };
 
-  const clonedContent = isValidElement(content)
-    ? cloneElement(content as ReactElement, { windowId: id })
-    : content;
+  const clonedContent = useMemo(() => {
+    const cloned = isValidElement(content)
+      ? cloneElement(content as ReactElement, { windowId: id })
+      : content;
+
+    return cloned;
+  }, [content, id]);
 
   return (
     <div
