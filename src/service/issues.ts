@@ -23,7 +23,6 @@ type IssuesResponse = Issue[];
 
 export const issuesApi = api.injectEndpoints({
   endpoints: (build) => ({
-    // TODO: нужна ли тут мутация для ртк-квери?
     user: build.mutation({
       query: () => ({
         url: 'user',
@@ -39,21 +38,23 @@ export const issuesApi = api.injectEndpoints({
     getIssues: build.query<IssuesResponse, void>({
       query: () => ({ url: 'repos/refringerator/bugboard/issues' }),
       providesTags: (result = []) => [
-        ...result.map(({ number }) => ({ type: 'Issues', number }) as const),
+        ...result.map(
+          ({ number }) => ({ type: 'Issues', id: number }) as const
+        ),
         { type: 'Issues' as const, id: 'LIST' },
       ],
     }),
-    // addPost: build.mutation<Issue, Partial<Issue>>({
-    //   query: (body) => ({
-    //     url: `posts`,
-    //     method: 'POST',
-    //     body,
-    //   }),
-    //   invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
-    // }),
+    addIssue: build.mutation<Issue, Partial<Issue>>({
+      query: (body) => ({
+        url: 'repos/refringerator/bugboard/issues',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Issues', id: 'LIST' }],
+    }),
     getIssue: build.query<Issue, number>({
       query: (number) => `repos/refringerator/bugboard/issues/${number}`,
-      providesTags: (_issue, _err, number) => [{ type: 'Issues', number }],
+      providesTags: (_issue, _err, number) => [{ type: 'Issues', id: number }],
     }),
     updateIssue: build.mutation<Issue, Partial<Issue>>({
       query(data) {
@@ -64,7 +65,13 @@ export const issuesApi = api.injectEndpoints({
           body,
         };
       },
-      invalidatesTags: (issue) => [{ type: 'Issues', number: issue?.number }],
+      invalidatesTags: (issue) => [{ type: 'Issues', id: issue?.number }],
+      // extraOptions: {
+      //   backoff: () => {
+      //     // We intentionally error once on login, and this breaks out of retrying. The next login attempt will succeed.
+      //     retry.fail({ fake: 'error' });
+      //   },
+      // },
     }),
     // deletePost: build.mutation<{ success: boolean; id: number }, number>({
     //   query(id) {
@@ -75,23 +82,18 @@ export const issuesApi = api.injectEndpoints({
     //   },
     //   invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
     // }),
-    // getErrorProne: build.query<{ success: boolean }, void>({
-    //   query: () => 'error-prone',
-    // }),
   }),
 });
 
 export const {
-  //   useAddPostMutation,
+  useAddIssueMutation,
   //   useDeletePostMutation,
   useGetIssueQuery,
   useGetIssuesQuery,
   useUserMutation,
   useUpdateIssueMutation,
-  //   useGetErrorProneQuery,
 } = issuesApi;
 
 export const {
-  //   endpoints: { login, getPost },
   endpoints: { getIssue, user },
 } = issuesApi;

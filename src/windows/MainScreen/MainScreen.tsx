@@ -70,10 +70,10 @@ function MainScreen() {
       id: '5',
       title: 'Новая задача',
       onClick: () => {
-        const issueWindow = IssueWindowContent;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (issueWindow as any).params = { number: 7 };
-        openWindow(issueWindow);
+        // const issueWindow = IssueWindowContent;
+        // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // (issueWindow as any).params = { number: 7 };
+        openWindow(IssueWindowContent);
       },
     },
     { id: '99', title: 'Выход', onClick: () => dispatch(increment()) },

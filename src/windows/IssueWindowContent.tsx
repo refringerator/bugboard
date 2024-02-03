@@ -1,38 +1,49 @@
 import { useContext } from 'react';
 import IssueForm, { TFormData } from 'src/components/IssueForm';
 import WindowsContext from 'src/context/WindowsContext';
-import { useGetIssueQuery, useUpdateIssueMutation } from 'src/service/issues';
+import {
+  useAddIssueMutation,
+  useGetIssueQuery,
+  useUpdateIssueMutation,
+} from 'src/service/issues';
 
 interface IIssueWindow {
   // onClose?: () => void;
   number?: number;
   windowId?: string;
 }
-function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
+function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
   const { data: issue, isLoading } = useGetIssueQuery(number);
   const { closeWindow } = useContext(WindowsContext);
   const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
+  const [addIssue, { isLoading: isAdditng }] = useAddIssueMutation();
 
+  // console.log({ number });
   // const isUpdating = false;
 
-  const onUpdate = (formData: TFormData) =>
-    updateIssue({
-      number,
-      title: formData.title,
-      body: formData.description,
-    })
-      .then((result) => {
-        // handle the success!
-        console.log('Update Result', result);
-        // setIsEditing(false);
+  const onUpdate = async (formData: TFormData) => {
+    if (number !== 0) {
+      updateIssue({
+        number,
+        title: formData.title,
+        body: formData.description,
       })
-      .catch((error) => console.error('Update Error', error));
-
+        .then((result) => {
+          // handle the success!
+          console.log('Update Result', result);
+          // setIsEditing(false);
+        })
+        .catch((error) => console.error('Update Error', error));
+    } else {
+      console.log('create');
+      await addIssue({ title: formData.title, body: formData.description });
+    }
+  };
   if (isLoading) {
     return <div>Загрузка...</div>;
   }
 
-  if (!issue) {
+  if (!issue && number !== 0) {
     return <div>Ошибка Не найдена задача!</div>;
   }
 
@@ -40,7 +51,13 @@ function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
     if (windowId) closeWindow(windowId);
   };
 
-  const { body_text: description, title } = issue;
+  let description = '';
+  let title = '';
+
+  if (issue) {
+    description = issue.body_text;
+    title = issue.title;
+  }
 
   // console.log({ issue });
 
@@ -51,14 +68,14 @@ function IssueWindowContent({ number = 4, windowId = '' }: IIssueWindow) {
         title={title}
         onCancel={onClose}
         onUpdate={onUpdate}
-        loading={isUpdating}
+        loading={isUpdating || isAdditng}
       />
     </div>
   );
 }
 
 IssueWindowContent.defaultProps = {
-  number: 4,
+  number: 0,
   windowId: '',
 };
 
