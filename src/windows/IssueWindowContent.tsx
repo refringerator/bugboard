@@ -1,25 +1,47 @@
-import { useContext } from 'react';
+/* TODO 
+  - добавить уникальные идентификаторы для окон, отличные от текущих
+  - не менять идентификатор окна, чтобы он не перерендеривался
+
+*/
+
+import { useContext, useEffect, useState } from 'react';
 import IssueForm, { TFormData } from 'src/components/IssueForm';
 import WindowsContext from 'src/context/WindowsContext';
 import {
   useAddIssueMutation,
-  useGetIssueQuery,
+  useLazyGetIssueQuery,
   useUpdateIssueMutation,
 } from 'src/service/issues';
 
 interface IIssueWindow {
-  // onClose?: () => void;
   number?: number;
   windowId?: string;
 }
 function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
-  const { data: issue, isLoading } = useGetIssueQuery(number);
-  const { closeWindow } = useContext(WindowsContext);
+  const [currentNumber, setCurrentNumber] = useState(number);
+  const [lazyGetIssue, lqresult] = useLazyGetIssueQuery();
+  const { closeWindow, changeWindowProps } = useContext(WindowsContext);
   const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
-  const [addIssue, { isLoading: isAdditng }] = useAddIssueMutation();
+  const [addIssue, { isLoading: isAdditng, data: addData }] =
+    useAddIssueMutation();
 
-  // console.log({ number });
-  // const isUpdating = false;
+  const { data: issue, isLoading } = lqresult;
+
+  useEffect(() => {
+    if (currentNumber) {
+      lazyGetIssue(currentNumber);
+      changeWindowProps(
+        windowId,
+        `Задача #${currentNumber}`,
+        `${'IssueWindow'}_${currentNumber}` // TODO: мб можно как-то достать из self
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentNumber]);
+
+  if (!currentNumber && addData) {
+    setCurrentNumber(addData.number);
+  }
 
   const onUpdate = async (formData: TFormData) => {
     if (number !== 0) {
@@ -31,11 +53,9 @@ function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
         .then((result) => {
           // handle the success!
           console.log('Update Result', result);
-          // setIsEditing(false);
         })
         .catch((error) => console.error('Update Error', error));
     } else {
-      console.log('create');
       await addIssue({ title: formData.title, body: formData.description });
     }
   };
@@ -58,8 +78,6 @@ function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
     description = issue.body_text;
     title = issue.title;
   }
-
-  // console.log({ issue });
 
   return (
     <div>

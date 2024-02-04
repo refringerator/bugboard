@@ -89,6 +89,7 @@ export const {
   useAddIssueMutation,
   //   useDeletePostMutation,
   useGetIssueQuery,
+  useLazyGetIssueQuery,
   useGetIssuesQuery,
   useUserMutation,
   useUpdateIssueMutation,

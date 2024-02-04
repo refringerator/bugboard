@@ -43,11 +43,13 @@ function MainScreen() {
     onWindowClose,
     closeAllWindows,
     onActive,
+    changeWindowProps,
     windows,
   } = useWindows({ windows: startWindows });
 
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => state.counter.value);
+
+  console.log('Main screen render');
 
   const menuElements = [
     {
@@ -70,13 +72,24 @@ function MainScreen() {
       id: '5',
       title: 'Новая задача',
       onClick: () => {
-        // const issueWindow = IssueWindowContent;
-        // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        // (issueWindow as any).params = { number: 7 };
-        openWindow(IssueWindowContent);
+        const issueWindow = IssueWindowContent;
+        const issueNumber = 0;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (issueWindow as any).params = {
+          number: issueNumber,
+          id: `${issueWindow.windowId}_${issueNumber}`,
+        };
+        issueWindow.title = `Создание новой задачи`;
+        openWindow(issueWindow);
       },
     },
-    { id: '99', title: 'Выход', onClick: () => dispatch(increment()) },
+    {
+      id: '99',
+      title: 'Выход',
+      onClick: () => {
+        dispatch(increment());
+      },
+    },
   ];
 
   return (
@@ -85,15 +98,12 @@ function MainScreen() {
         () => ({
           closeWindow: onWindowClose,
           openWindow,
+          changeWindowProps,
         }),
-        [openWindow, onWindowClose]
+        [openWindow, onWindowClose, changeWindowProps]
       )}
     >
-      <MainHeader
-        title={`BugBoard ${count}`}
-        icon="bug.svg"
-        onClick={closeAllWindows}
-      />
+      <MainHeader title="BugBoard" icon="bug.svg" onClick={closeAllWindows} />
       <MainMenu menuElements={menuElements} />
       {cm && (
         <ContextMenu

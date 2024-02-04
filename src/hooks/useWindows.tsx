@@ -49,7 +49,20 @@ function useWindows({ windows }: IUseWindows) {
 
   const closeAllWindows = () => {
     setWins([]);
-    // console.log('Close button clicked');
+  };
+
+  const changeWindowProps = (
+    windowId: string,
+    newTitle?: string,
+    newId?: string
+  ) => {
+    const newWins = wins.map((curWindow) => ({
+      ...curWindow,
+      title:
+        curWindow.id === windowId && !!newTitle ? newTitle : curWindow.title,
+      id: curWindow.id === windowId && !!newId ? newId : curWindow.id,
+    }));
+    setWins(newWins);
   };
 
   const onWindowClose = (windowId: string) => {
@@ -86,6 +99,7 @@ function useWindows({ windows }: IUseWindows) {
     onWindowClose,
     closeAllWindows,
     onActive,
+    changeWindowProps,
   };
 }
 
