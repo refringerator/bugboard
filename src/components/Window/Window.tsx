@@ -119,9 +119,11 @@ function Window({
         y: ev.pageY - ev.currentTarget.offsetTop,
         width: curWidth + 2,
         height: curHeight + 2,
-        content: (ev.target as EventTarget & HTMLDivElement).lastElementChild
-          ?.innerHTML,
-        title,
+        content: encodeURIComponent(
+          (ev.target as EventTarget & HTMLDivElement).lastElementChild
+            ?.innerHTML || ''
+        ),
+        title: encodeURIComponent(title),
       })
     );
   };

@@ -34,8 +34,8 @@ const Background = memo(({ color }: Props) => {
       console.log('another window');
       genNewWindows(
         `${d.instanceId}_${d.id}`,
-        d.title,
-        <MyComponent innerHTML={d.content} />,
+        decodeURIComponent(d.title),
+        <MyComponent innerHTML={decodeURIComponent(d.content)} />,
         {
           newX: ev.pageX - d.x,
           newY: ev.pageY - d.y,
