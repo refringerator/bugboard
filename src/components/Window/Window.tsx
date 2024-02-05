@@ -117,6 +117,8 @@ function Window({
         ).instanceId,
         x: ev.pageX - ev.currentTarget.offsetLeft,
         y: ev.pageY - ev.currentTarget.offsetTop,
+        content: ev.target.lastElementChild.innerHTML,
+        title,
       })
     );
   };

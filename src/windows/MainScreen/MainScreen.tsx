@@ -95,8 +95,9 @@ function MainScreen() {
           closeWindow: onWindowClose,
           openWindow,
           changeWindowProps,
+          genNewWindows,
         }),
-        [openWindow, onWindowClose, changeWindowProps]
+        [openWindow, onWindowClose, changeWindowProps, genNewWindows]
       )}
     >
       <MainHeader title="BugBoard" icon="bug.svg" onClick={closeAllWindows} />

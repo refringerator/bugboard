@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Background = memo(({ color }: Props) => {
-  const { changeWindowProps } = useContext(WindowsContext);
+  const { changeWindowProps, genNewWindows } = useContext(WindowsContext);
 
   function allowDrop(ev: React.DragEvent) {
     ev.preventDefault();
@@ -27,6 +27,7 @@ const Background = memo(({ color }: Props) => {
       changeWindowProps(d.id, { newX: ev.pageX - d.x, newY: ev.pageY - d.y });
     } else {
       console.log('another window');
+      genNewWindows(d.content);
     }
   }
 

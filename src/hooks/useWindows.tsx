@@ -84,14 +84,15 @@ function useWindows({ windows }: IUseWindows) {
     setZIndex((val) => val + 1);
   };
 
-  const genNewWindows = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const genNewWindows = (content?: any) => {
     winId.current += 1;
     setWins([
       ...wins,
       {
         id: `${winId.current}`,
         title: `window ${winId.current}`,
-        content: `content ${winId.current}`,
+        content: content || `content ${winId.current}`,
         zIndex,
       },
     ]);
