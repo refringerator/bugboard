@@ -9,10 +9,12 @@ import App from './windows/App/App';
 import ErrorPage from './error-page';
 import OAuthCallback from './routes/OAuthCallback';
 import MainScreen from './windows/MainScreen/MainScreen';
+import Background from './windows/Background';
 
 const router = createHashRouter(
   createRoutesFromElements([
     <Route path="/" element={<MainScreen />}>
+      <Route index element={<Background color="#7d8a96" />} />
       <Route path="app" element={<App />} errorElement={<ErrorPage />} />
       <Route
         path="oauth-callback"
