@@ -1,19 +1,41 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import WindowsContext from 'src/context/WindowsContext';
 
 interface Props {
   color: string;
 }
 
 const Background = memo(({ color }: Props) => {
+  const { changeWindowProps } = useContext(WindowsContext);
+
+  function allowDrop(ev: React.DragEvent) {
+    ev.preventDefault();
+  }
+
+  function drop(ev: React.DragEvent) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData('text');
+    console.log({ ev, data });
+
+    const d = JSON.parse(data);
+
+    changeWindowProps(d.id, { newX: ev.pageX - d.x, newY: ev.pageY - d.y });
+    // ev.target.appendChild(document.getElementById(data));
+  }
+
   return (
     <div
+      id="bg"
+      onDrop={(event) => drop(event)}
+      onDragOver={(event) => allowDrop(event)}
       style={{
-        backgroundColor: color || 'fff',
+        // backgroundColor: color || 'fff',
+        backgroundColor: 'none',
         flex: '1 1 auto',
         height: '100%',
       }}
     >
-      123
+      1234
     </div>
   );
 });

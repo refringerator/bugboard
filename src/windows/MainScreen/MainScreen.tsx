@@ -4,10 +4,6 @@ import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/W
 import Window, { IWindowProps } from 'src/components/Window/Window';
 import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 
-import type { RootState } from 'src/redux/store';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment } from 'src/redux/counterSlice';
-
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
 import useWindows from 'src/hooks/useWindows';
@@ -47,7 +43,7 @@ function MainScreen() {
     windows,
   } = useWindows({ windows: startWindows });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   console.log('Main screen render');
 
@@ -87,7 +83,7 @@ function MainScreen() {
       id: '99',
       title: 'Выход',
       onClick: () => {
-        dispatch(increment());
+        console.log('exit');
       },
     },
   ];
@@ -129,6 +125,7 @@ function MainScreen() {
           width={window.width ? window.width : undefined}
           minHeight={window?.minHeight}
           minWidth={window?.minWidth}
+          position={window?.position}
         />
       ))}
 

@@ -53,15 +53,21 @@ function useWindows({ windows }: IUseWindows) {
 
   const changeWindowProps = (
     windowId: string,
-    newTitle?: string,
-    newId?: string
+    props: { newTitle?: string; newId?: string; newX?: number; newY?: number }
   ) => {
-    const newWins = wins.map((curWindow) => ({
-      ...curWindow,
-      title:
-        curWindow.id === windowId && !!newTitle ? newTitle : curWindow.title,
-      id: curWindow.id === windowId && !!newId ? newId : curWindow.id,
-    }));
+    const newWins = wins.map((curWindow) => {
+      if (curWindow.id !== windowId) return curWindow;
+
+      const position =
+        !!props.newX && !!props.newY ? { x: props.newX, y: props.newY } : null;
+
+      return {
+        ...curWindow,
+        title: props.newTitle ? props.newTitle : curWindow.title,
+        id: props.newId ? props.newId : curWindow.id,
+        position: position || curWindow.position,
+      };
+    });
     setWins(newWins);
   };
 

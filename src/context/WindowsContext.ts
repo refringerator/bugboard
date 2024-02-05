@@ -6,8 +6,7 @@ const WindowsContext = createContext({
   openWindow: (_OpeningWindow: IOpeningWindow) => {},
   changeWindowProps: (
     _windowId: string,
-    _newName?: string,
-    _newId?: string
+    _props: { newTitle?: string; newId?: string; newX?: number; newY?: number }
   ) => {},
 });
 
