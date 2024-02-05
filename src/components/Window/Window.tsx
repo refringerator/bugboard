@@ -117,7 +117,10 @@ function Window({
         ).instanceId,
         x: ev.pageX - ev.currentTarget.offsetLeft,
         y: ev.pageY - ev.currentTarget.offsetTop,
-        content: ev.target.lastElementChild.innerHTML,
+        width: curWidth + 2,
+        height: curHeight + 2,
+        content: (ev.target as EventTarget & HTMLDivElement).lastElementChild
+          ?.innerHTML,
         title,
       })
     );

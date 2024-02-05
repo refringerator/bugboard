@@ -36,7 +36,12 @@ const Background = memo(({ color }: Props) => {
         `${d.instanceId}_${d.id}`,
         d.title,
         <MyComponent innerHTML={d.content} />,
-        { newX: ev.pageX - d.x, newY: ev.pageY - d.y }
+        {
+          newX: ev.pageX - d.x,
+          newY: ev.pageY - d.y,
+          width: d.width,
+          height: d.height,
+        }
       );
     }
   }
