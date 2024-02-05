@@ -5,6 +5,11 @@ interface Props {
   color: string;
 }
 
+function MyComponent({ innerHTML }: { innerHTML: string }) {
+  // eslint-disable-next-line react/no-danger
+  return <div dangerouslySetInnerHTML={{ __html: innerHTML }} />;
+}
+
 const Background = memo(({ color }: Props) => {
   const { changeWindowProps, genNewWindows } = useContext(WindowsContext);
 
@@ -27,7 +32,12 @@ const Background = memo(({ color }: Props) => {
       changeWindowProps(d.id, { newX: ev.pageX - d.x, newY: ev.pageY - d.y });
     } else {
       console.log('another window');
-      genNewWindows(d.content);
+      genNewWindows(
+        `${d.instanceId}_${d.id}`,
+        d.title,
+        <MyComponent innerHTML={d.content} />,
+        { newX: ev.pageX - d.x, newY: ev.pageY - d.y }
+      );
     }
   }
 

@@ -85,8 +85,8 @@ function Window({
 
   const onMouseUp = () => {
     window.removeEventListener('mouseup', onMouseUp);
-    const el = bg.current?.style;
-    if (el) el.zIndex = '1';
+    // const el = bg.current?.style;
+    // if (el) el.zIndex = '1';
     setIsDragable(false);
   };
   const onMouseDown = () => {
@@ -94,12 +94,12 @@ function Window({
     setIsDragable(true);
   };
   const onDragStart = (ev: React.DragEvent<HTMLDivElement>) => {
-    const el = bg.current?.style;
-    if (el) el.zIndex = '100000';
+    // const el = bg.current?.style;
+    // if (el) el.zIndex = '100000';
 
     //    bg.current?.style.setProperty('zIndex', '100000');
 
-    console.log(bg.current?.style);
+    // console.log(bg.current?.style);
     console.log({ ev_target: ev });
     console.log({
       l: ev.currentTarget.offsetLeft,

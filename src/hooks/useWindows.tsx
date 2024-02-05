@@ -84,15 +84,38 @@ function useWindows({ windows }: IUseWindows) {
     setZIndex((val) => val + 1);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const genNewWindows = (content?: any) => {
+  const genNewWindows = (
+    id?: string,
+    title?: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    content?: any,
+    props?: {
+      newX?: number;
+      newY?: number;
+      height?: number;
+      width?: number;
+    }
+  ) => {
+    // Не создавать новое окно при существующем идентификаторе
+    if (id && wins.find((el) => id === el.id) !== undefined) return;
+
     winId.current += 1;
+    const position =
+      props && props.newX && props.newY
+        ? { x: props.newX, y: props.newY }
+        : null;
+
+    console.log({ position });
+
     setWins([
       ...wins,
       {
-        id: `${winId.current}`,
-        title: `window ${winId.current}`,
+        id: id || `${winId.current}`,
+        title: title || `window ${winId.current}`,
         content: content || `content ${winId.current}`,
+        position: position || undefined,
+        height: props?.height || undefined,
+        width: props?.width || undefined,
         zIndex,
       },
     ]);
