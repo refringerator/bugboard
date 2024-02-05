@@ -15,7 +15,7 @@ const Background = memo(({ color }: Props) => {
   function drop(ev: React.DragEvent) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('text');
-    console.log({ ev, data });
+    console.log({ ev, data, color });
 
     const d = JSON.parse(data);
 

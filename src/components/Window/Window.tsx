@@ -4,11 +4,11 @@ import useMoveElement from 'src/hooks/useMoveElement';
 import { useDispatch } from 'react-redux';
 import { setWindowState } from 'src/redux/windowsSlice';
 import {
-  DragEventHandler,
   ReactElement,
   cloneElement,
   isValidElement,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -54,10 +54,12 @@ function Window({
   } = useResizeElement({ minWidth, minHeight, width, height });
 
   const {
-    handleMouseDown: handleMouseDownMove,
+    // handleMouseDown: HandleMouseDownMove,
     isGrabbing,
     position,
   } = useMoveElement({ startX, startY });
+
+  const bg = useRef(document.getElementById('bg'));
 
   const onWindowClode = () => {
     dispatch(
@@ -82,7 +84,7 @@ function Window({
 
   const onMouseUp = () => {
     window.removeEventListener('mouseup', onMouseUp);
-    (bg as HTMLElement).style.zIndex = '1';
+    bg.current?.style.setProperty('zIndex', '1');
     setIsDragable(false);
   };
   const onMouseDown = () => {
@@ -90,12 +92,12 @@ function Window({
     setIsDragable(true);
   };
   const onDragStart = (ev: React.DragEvent<HTMLDivElement>) => {
-    (bg as HTMLElement).style.zIndex = '10000';
+    bg.current?.style.setProperty('zIndex', '100000');
 
     console.log({ ev_target: ev });
     console.log({
-      l: ev.target.offsetLeft,
-      t: ev.target.offsetTop,
+      l: ev.currentTarget.offsetLeft,
+      t: ev.currentTarget.offsetTop,
       x: ev.pageX,
       y: ev.pageY,
     });
@@ -104,8 +106,8 @@ function Window({
       'text',
       JSON.stringify({
         id,
-        x: ev.pageX - ev.target.offsetLeft,
-        y: ev.pageY - ev.target.offsetTop,
+        x: ev.pageX - ev.currentTarget.offsetLeft,
+        y: ev.pageY - ev.currentTarget.offsetTop,
       })
     );
   };

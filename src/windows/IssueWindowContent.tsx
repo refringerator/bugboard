@@ -30,11 +30,10 @@ function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
   useEffect(() => {
     if (currentNumber) {
       lazyGetIssue(currentNumber);
-      changeWindowProps(
-        windowId,
-        `Задача #${currentNumber}`,
-        `${'IssueWindow'}_${currentNumber}` // TODO: мб можно как-то достать из self
-      );
+      changeWindowProps(windowId, {
+        newTitle: `Задача #${currentNumber}`,
+        newId: `${'IssueWindow'}_${currentNumber}`, // TODO: мб можно как-то достать из self
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentNumber]);
