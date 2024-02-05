@@ -19,8 +19,15 @@ const Background = memo(({ color }: Props) => {
 
     const d = JSON.parse(data);
 
-    changeWindowProps(d.id, { newX: ev.pageX - d.x, newY: ev.pageY - d.y });
-    // ev.target.appendChild(document.getElementById(data));
+    if (
+      d.instanceId ===
+      (window as Window & typeof globalThis & { instanceId: string }).instanceId
+    ) {
+      console.log('same window');
+      changeWindowProps(d.id, { newX: ev.pageX - d.x, newY: ev.pageY - d.y });
+    } else {
+      console.log('another window');
+    }
   }
 
   return (

@@ -60,6 +60,7 @@ function Window({
   } = useMoveElement({ startX, startY });
 
   const bg = useRef(document.getElementById('bg'));
+  if (!bg.current) bg.current = document.getElementById('bg');
 
   const onWindowClode = () => {
     dispatch(
@@ -84,7 +85,8 @@ function Window({
 
   const onMouseUp = () => {
     window.removeEventListener('mouseup', onMouseUp);
-    bg.current?.style.setProperty('zIndex', '1');
+    const el = bg.current?.style;
+    if (el) el.zIndex = '1';
     setIsDragable(false);
   };
   const onMouseDown = () => {
@@ -92,8 +94,12 @@ function Window({
     setIsDragable(true);
   };
   const onDragStart = (ev: React.DragEvent<HTMLDivElement>) => {
-    bg.current?.style.setProperty('zIndex', '100000');
+    const el = bg.current?.style;
+    if (el) el.zIndex = '100000';
 
+    //    bg.current?.style.setProperty('zIndex', '100000');
+
+    console.log(bg.current?.style);
     console.log({ ev_target: ev });
     console.log({
       l: ev.currentTarget.offsetLeft,
@@ -106,6 +112,9 @@ function Window({
       'text',
       JSON.stringify({
         id,
+        instanceId: (
+          window as Window & typeof globalThis & { instanceId: string }
+        ).instanceId,
         x: ev.pageX - ev.currentTarget.offsetLeft,
         y: ev.pageY - ev.currentTarget.offsetTop,
       })
