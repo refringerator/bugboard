@@ -1,5 +1,5 @@
 import { memo, useContext } from 'react';
-import WindowsContext from 'src/context/WindowsContext';
+import { WindowsContext } from 'src/context';
 
 interface Props {
   color: string;

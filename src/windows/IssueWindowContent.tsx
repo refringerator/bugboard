@@ -6,7 +6,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import IssueForm, { TFormData } from 'src/components/IssueForm';
-import WindowsContext from 'src/context/WindowsContext';
+import { WindowsContext } from 'src/context';
 import {
   useAddIssueMutation,
   useLazyGetIssueQuery,

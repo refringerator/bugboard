@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import IssuesTable from 'src/components/IssuesTable';
-import WindowsContext from 'src/context/WindowsContext';
+import { WindowsContext } from 'src/context';
 import { useGetIssuesQuery } from 'src/service/issues';
 import IssueWindowContent from './IssueWindowContent';
 

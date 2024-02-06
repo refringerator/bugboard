@@ -7,7 +7,7 @@ import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 import { Outlet } from 'react-router-dom';
 import useContextMenu from 'src/hooks/useContextMenu';
 import useWindows from 'src/hooks/useWindows';
-import WindowsContext from 'src/context/WindowsContext';
+import { WindowsContext } from 'src/context';
 import { useMemo } from 'react';
 import CounterWindowContent from '../CounterWindowContent';
 import SettingsWindowContent from '../SettingsWindowContent';
