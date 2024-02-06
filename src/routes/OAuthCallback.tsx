@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setToken } from 'src/redux/authSlice';
+import { setToken } from 'src/store/authSlice';
 import { useUserMutation } from 'src/service/issues';
 
 interface ILoader {

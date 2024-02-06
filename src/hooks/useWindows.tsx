@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { IWindowProps } from 'src/components/Window/Window';
-import { windowsSelectors } from 'src/redux/windowsSlice';
+import { windowsSelectors } from 'src/store/windowsSlice';
 
 interface IUseWindows {
   windows: IWindowProps[];

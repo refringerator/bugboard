@@ -1,11 +1,14 @@
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import { api } from 'src/service/api';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import counter from './counterSlice';
-import windows from './windowsSlice';
-import auth from './authSlice';
+import {
+  counterReducer,
+  windowsReducer,
+  authReducer,
+  settingsReducer,
+} from 'src/store';
 
 // Должна быть только одна корневая сага
 import rootSaga from './saga/rootSaga';
@@ -15,9 +18,10 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    counter,
-    windows,
-    auth,
+    counter: counterReducer,
+    windows: windowsReducer,
+    auth: authReducer,
+    settings: settingsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware).concat(api.middleware),

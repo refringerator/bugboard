@@ -9,7 +9,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { useResizeElement, useMoveElement } from 'src/hooks';
-import { setWindowState } from 'src/redux/windowsSlice';
+import { setWindowState } from 'src/store/windowsSlice';
 
 import './Window.css';
 
