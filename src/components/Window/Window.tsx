@@ -7,10 +7,11 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useResizeElement, useMoveElement } from 'src/hooks';
 import { setWindowState } from 'src/store/windowsSlice';
+import { settingsSelectors } from 'src/store/settingsSlice';
 
 import './Window.css';
 
@@ -48,6 +49,7 @@ function Window({
   position: curPosition,
 }: IWindowProps) {
   const [isDragable, setIsDragable] = useState(false);
+  const isDragAndDropEnable = useSelector(settingsSelectors.getDragAndDrop);
   const dispatch = useDispatch();
   const {
     handleMouseDown: handleMouseDownResize,
@@ -56,14 +58,16 @@ function Window({
   } = useResizeElement({ minWidth, minHeight, width, height });
 
   const {
-    // handleMouseDown: HandleMouseDownMove,
+    handleMouseDown: handleMouseDownMove,
     isGrabbing,
     position,
   } = useMoveElement({ startX, startY });
 
+  // Попытка изменять стиль бэкграунда при перетаскивании окна
   const bg = useRef(document.getElementById('bg'));
   if (!bg.current) bg.current = document.getElementById('bg');
 
+  // Сохранение настроек окна при закрытии
   const onWindowClose = useCallback(() => {
     dispatch(
       setWindowState({
@@ -92,9 +96,13 @@ function Window({
     // if (el) el.zIndex = '1';
     setIsDragable(false);
   };
-  const onMouseDown = () => {
-    window.addEventListener('mouseup', onMouseUp);
-    setIsDragable(true);
+  const onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isDragAndDropEnable) {
+      window.addEventListener('mouseup', onMouseUp);
+      setIsDragable(true);
+    } else {
+      handleMouseDownMove(event);
+    }
   };
   const onDragStart = (ev: React.DragEvent<HTMLDivElement>) => {
     // const el = bg.current?.style;
@@ -139,8 +147,8 @@ function Window({
       onMouseDown={() => onWindowFocus(id)}
       style={{
         position: 'absolute',
-        left: curPosition ? curPosition.x : position.x,
-        top: curPosition ? curPosition.y : position.y,
+        left: isDragAndDropEnable && curPosition ? curPosition.x : position.x,
+        top: isDragAndDropEnable && curPosition ? curPosition.y : position.y,
         width: curWidth + 2,
         height: curHeight + 2,
         zIndex,
@@ -148,7 +156,6 @@ function Window({
     >
       <div
         className="window__header"
-        // onMouseDown={handleMouseDownMove}
         onMouseDown={onMouseDown}
         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
       >
