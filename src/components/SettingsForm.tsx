@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 export type TSettingsFormInputs = {
   isDragAndDropEnable: boolean;
   onSubmit: SubmitHandler<TSettingsFormInputs>;
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 function SettingsForm({
@@ -11,11 +11,7 @@ function SettingsForm({
   onSubmit,
   onClose,
 }: TSettingsFormInputs) {
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<TSettingsFormInputs>({
+  const { register, handleSubmit } = useForm<TSettingsFormInputs>({
     defaultValues: { isDragAndDropEnable },
   });
 
@@ -32,11 +28,6 @@ function SettingsForm({
         />
       </label>
 
-      {/* register your input into the hook by invoking the "register" function */}
-      {/* include validation with required or other standard HTML validation rules */}
-      {/* <input {...register('exampleRequired', { required: true })} /> */}
-      {/* errors will return when field validation fails  */}
-      {/* {errors.exampleRequired && <span>This field is required</span>} */}
       <button type="submit">Сохранить</button>
       <button type="button" onClick={onClose}>
         Отмена
@@ -44,5 +35,9 @@ function SettingsForm({
     </form>
   );
 }
+
+SettingsForm.defaultProps = {
+  onClose: () => {},
+};
 
 export default SettingsForm;

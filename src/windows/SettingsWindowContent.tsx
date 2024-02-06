@@ -4,7 +4,7 @@ import { settingsSelectors, setDragAndDrop } from 'src/store/settingsSlice';
 
 interface ISettingsWindow {
   windowId?: string;
-  onWindowClose: () => void;
+  onWindowClose?: () => void;
 }
 
 function SettingsWindowContent({
@@ -30,6 +30,7 @@ function SettingsWindowContent({
 }
 SettingsWindowContent.defaultProps = {
   windowId: '',
+  onWindowClose: () => {},
 };
 
 SettingsWindowContent.windowId = 'SettingWindow';

@@ -1,19 +1,24 @@
-type Tlol = {
+type TCounterProps = {
   value: string;
   onIncrement: () => void;
   onDecrement: () => void;
   onIncrementAsync: () => void;
 };
 
-function Counter({ value, onIncrement, onDecrement, onIncrementAsync }: Tlol) {
+function Counter({
+  value,
+  onIncrement,
+  onDecrement,
+  onIncrementAsync,
+}: TCounterProps) {
   return (
     <div>
       <button type="button" onClick={onIncrementAsync}>
-        Уменьшить через секунду
-      </button>{' '}
+        Увеличить через секунду
+      </button>
       <button type="button" onClick={onIncrement}>
         Прибавить
-      </button>{' '}
+      </button>
       <button type="button" onClick={onDecrement}>
         Убавить
       </button>

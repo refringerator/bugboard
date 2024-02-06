@@ -10,24 +10,26 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useResizeElement, useMoveElement } from 'src/hooks';
-import { setWindowState } from 'src/store/windowsSlice';
-import { settingsSelectors } from 'src/store/settingsSlice';
+import { settingsSelectors, setWindowStateAction } from 'src/store';
 
 import './Window.css';
 
 export interface IWindowProps {
-  width?: number;
-  height?: number;
-  minWidth?: number;
-  minHeight?: number;
   id: string;
   title: string;
   icon?: string;
   content: React.ReactNode;
+
+  width?: number;
+  height?: number;
+  minWidth?: number;
+  minHeight?: number;
   zIndex?: number;
+
   startX?: number;
   startY?: number;
   position?: { x: number; y: number };
+
   onCloseClick?: (id: string) => void;
   onWindowFocus?: (id: string) => void;
 }
@@ -70,7 +72,7 @@ function Window({
   // Сохранение настроек окна при закрытии
   const onWindowClose = useCallback(() => {
     dispatch(
-      setWindowState({
+      setWindowStateAction({
         id,
         width: curWidth,
         height: curHeight,
