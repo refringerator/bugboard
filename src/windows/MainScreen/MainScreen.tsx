@@ -1,13 +1,17 @@
-import MainMenu from 'src/components/MainWindow/MainMenu/MainMenu';
-import MainHeader from 'src/components/MainWindow/MainHeader/MainHeader';
-import WindowsControlPanel from 'src/components/MainWindow/WindowsControlPanel/WindowsControlPanel';
-import Window, { IWindowProps } from 'src/components/Window/Window';
-import ContextMenu from 'src/components/ContextMenu/ContextMenu';
-
+import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import {
+  MainMenu,
+  MainHeader,
+  WindowsControlPanel,
+  Window,
+  IWindowProps,
+  ContextMenu,
+} from 'src/components';
+
 import { useContextMenu, useWindows } from 'src/hooks';
 import { WindowsContext } from 'src/context';
-import { useMemo } from 'react';
 import {
   CounterWindowContent,
   SettingsWindowContent,
@@ -43,8 +47,6 @@ function MainScreen() {
     changeWindowProps,
     windows,
   } = useWindows({ windows: startWindows });
-
-  // const dispatch = useDispatch();
 
   console.log('Main screen render');
 
