@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import IssuesTable from 'src/components/IssuesTable';
 import { WindowsContext } from 'src/context';
 import { useGetIssuesQuery } from 'src/service/issues';
-import IssueWindowContent from './IssueWindowContent';
+import { IssueWindowContent } from 'src/windows';
 
-function IssuesListWindowContent() {
+export function IssuesListWindowContent() {
   const { data: issues, isLoading } = useGetIssuesQuery();
   const { openWindow } = useContext(WindowsContext);
 

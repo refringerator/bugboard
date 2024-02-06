@@ -1,4 +1,4 @@
-function SettingsWindowContent() {
+export function SettingsWindowContent() {
   const title = 'SETTING WINDOW';
 
   return <div>{title}</div>;

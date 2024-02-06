@@ -5,11 +5,10 @@ import {
   createHashRouter,
 } from 'react-router-dom';
 
+import { MainScreen, Background } from 'src/windows';
 import App from './windows/App/App';
 import ErrorPage from './error-page';
 import OAuthCallback from './routes/OAuthCallback';
-import MainScreen from './windows/MainScreen/MainScreen';
-import Background from './windows/Background';
 
 const router = createHashRouter(
   createRoutesFromElements([

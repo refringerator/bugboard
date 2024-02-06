@@ -5,14 +5,15 @@ import Window, { IWindowProps } from 'src/components/Window/Window';
 import ContextMenu from 'src/components/ContextMenu/ContextMenu';
 
 import { Outlet } from 'react-router-dom';
-import useContextMenu from 'src/hooks/useContextMenu';
-import useWindows from 'src/hooks/useWindows';
+import { useContextMenu, useWindows } from 'src/hooks';
 import { WindowsContext } from 'src/context';
 import { useMemo } from 'react';
-import CounterWindowContent from '../CounterWindowContent';
-import SettingsWindowContent from '../SettingsWindowContent';
-import IssuesListWindowContent from '../IssuesListWindowContent';
-import IssueWindowContent from '../IssueWindowContent';
+import {
+  CounterWindowContent,
+  SettingsWindowContent,
+  IssuesListWindowContent,
+  IssueWindowContent,
+} from 'src/windows';
 
 const startWindows = [
   {
@@ -31,7 +32,7 @@ const startWindows = [
   },
 ];
 
-function MainScreen() {
+export function MainScreen() {
   const { cm, cmCoords, hideMenu } = useContextMenu();
   const {
     openWindow,
