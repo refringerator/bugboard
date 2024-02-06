@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import router from './router';
-import { store } from './redux/store';
+
+import router from 'src/navigation/router';
+import { store } from 'src/redux/store';
+import './index.css';
 
 (window as Window & typeof globalThis & { instanceId: string }).instanceId =
   Math.random().toString(36).substring(2, 14);

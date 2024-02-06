@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 
 import { MainScreen, Background, App } from 'src/windows';
-import ErrorPage from './error-page';
-import OAuthCallback from './routes/OAuthCallback';
+import OAuthCallback from 'src/routes/OAuthCallback';
+import ErrorPage from 'src/navigation/error-page';
 
 const router = createHashRouter(
   createRoutesFromElements([
