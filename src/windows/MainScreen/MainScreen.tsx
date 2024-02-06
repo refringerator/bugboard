@@ -32,7 +32,7 @@ const startWindows = [
   },
 ];
 
-export function MainScreen() {
+function MainScreen() {
   const { cm, cmCoords, hideMenu } = useContextMenu();
   const {
     openWindow,

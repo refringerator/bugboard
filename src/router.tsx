@@ -5,8 +5,7 @@ import {
   createHashRouter,
 } from 'react-router-dom';
 
-import { MainScreen, Background } from 'src/windows';
-import App from './windows/App/App';
+import { MainScreen, Background, App } from 'src/windows';
 import ErrorPage from './error-page';
 import OAuthCallback from './routes/OAuthCallback';
 

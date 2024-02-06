@@ -4,7 +4,7 @@ import { WindowsContext } from 'src/context';
 import { useGetIssuesQuery } from 'src/service/issues';
 import { IssueWindowContent } from 'src/windows';
 
-export function IssuesListWindowContent() {
+function IssuesListWindowContent() {
   const { data: issues, isLoading } = useGetIssuesQuery();
   const { openWindow } = useContext(WindowsContext);
 

@@ -17,10 +17,7 @@ interface IIssueWindow {
   number?: number;
   windowId?: string;
 }
-export function IssueWindowContent({
-  number = 0,
-  windowId = '',
-}: IIssueWindow) {
+function IssueWindowContent({ number = 0, windowId = '' }: IIssueWindow) {
   const [currentNumber, setCurrentNumber] = useState(number);
   const [lazyGetIssue, lqresult] = useLazyGetIssueQuery();
   const { closeWindow, changeWindowProps } = useContext(WindowsContext);

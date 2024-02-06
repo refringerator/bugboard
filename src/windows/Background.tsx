@@ -10,7 +10,7 @@ function MyComponent({ innerHTML }: { innerHTML: string }) {
   return <div dangerouslySetInnerHTML={{ __html: innerHTML }} />;
 }
 
-export const Background = memo(({ color }: Props) => {
+const Background = memo(({ color }: Props) => {
   const { changeWindowProps, genNewWindows } = useContext(WindowsContext);
 
   function allowDrop(ev: React.DragEvent) {
@@ -63,6 +63,6 @@ export const Background = memo(({ color }: Props) => {
   );
 });
 
-Background.displayName = '1234';
+Background.displayName = 'Background';
 
 export default Background;
