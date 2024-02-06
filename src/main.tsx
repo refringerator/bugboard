@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import router from 'src/navigation/router';
-import { store } from 'src/redux/store';
+import { store } from 'src/store/store';
 import './index.css';
 
 (window as Window & typeof globalThis & { instanceId: string }).instanceId =

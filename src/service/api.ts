@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
-import { RootState } from 'src/redux/store';
+import { RootState } from 'src/store/store';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.github.com/',

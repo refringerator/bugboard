@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Counter from 'src/components/delete_me/Counter';
-import { countSelectors, increment } from 'src/redux/counterSlice';
+import { countSelectors, increment } from 'src/store/counterSlice';
 
 function CounterWindowContent() {
   const dispatch = useDispatch();
