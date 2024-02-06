@@ -5,15 +5,15 @@ import {
   createHashRouter,
 } from 'react-router-dom';
 
-import { MainScreen, Background, App } from 'src/windows';
+import { MainScreen, Background, Auth } from 'src/windows';
 import OAuthCallback from 'src/routes/OAuthCallback';
 import ErrorPage from 'src/navigation/error-page';
 
 const router = createHashRouter(
   createRoutesFromElements([
-    <Route path="/" element={<MainScreen />}>
+    <Route path="/" element={<MainScreen />} errorElement={<ErrorPage />}>
       <Route index element={<Background color="#7d8a96" />} />
-      <Route path="app" element={<App />} errorElement={<ErrorPage />} />
+      <Route path="auth" element={<Auth />} />
       <Route
         path="oauth-callback"
         element={<OAuthCallback />}
