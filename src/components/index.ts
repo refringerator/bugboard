@@ -2,6 +2,7 @@ export * from './IssueForm';
 export { default as IssueForm } from './IssueForm';
 export { default as IssuesTable } from './IssuesTable';
 export { default as SettingsForm } from './SettingsForm';
+export * from './SettingsForm';
 
 export { default as Window } from './Window/Window';
 export * from './Window/Window';

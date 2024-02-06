@@ -2,6 +2,7 @@ import {
   ReactElement,
   cloneElement,
   isValidElement,
+  useCallback,
   useMemo,
   useRef,
   useState,
@@ -63,7 +64,7 @@ function Window({
   const bg = useRef(document.getElementById('bg'));
   if (!bg.current) bg.current = document.getElementById('bg');
 
-  const onWindowClode = () => {
+  const onWindowClose = useCallback(() => {
     dispatch(
       setWindowState({
         id,
@@ -74,15 +75,16 @@ function Window({
       })
     );
     onCloseClick(id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, curWidth, curHeight, position, onCloseClick]);
 
   const clonedContent = useMemo(() => {
     const cloned = isValidElement(content)
-      ? cloneElement(content as ReactElement, { windowId: id })
+      ? cloneElement(content as ReactElement, { windowId: id, onWindowClose })
       : content;
 
     return cloned;
-  }, [content, id]);
+  }, [content, id, onWindowClose]);
 
   const onMouseUp = () => {
     window.removeEventListener('mouseup', onMouseUp);
@@ -155,7 +157,7 @@ function Window({
         <div>
           <button
             type="button"
-            onClick={onWindowClode}
+            onClick={onWindowClose}
             className="header__button"
           >
             X
