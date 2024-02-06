@@ -5,7 +5,7 @@ interface UseMoveProps {
   startY?: number;
 }
 
-function useMoveElement({ startX = 100, startY = 100 }: UseMoveProps) {
+export function useMoveElement({ startX = 100, startY = 100 }: UseMoveProps) {
   const [position, setPosition] = useState({ x: startX, y: startY });
   const [isGrabbing, setGrabbing] = useState(false);
 
@@ -42,32 +42,6 @@ function useMoveElement({ startX = 100, startY = 100 }: UseMoveProps) {
     isGrabbing,
     handleMouseDown,
   };
-
-  //   (
-
-  //     <div
-  //       className="window"
-  //       style={{
-  //         position: 'absolute',
-
-  //         left: position.x,
-  //         top: position.y,
-  //         width: curWidth + 2,
-  //         height: curHeight + 2,
-  //       }}
-  //     >
-  //       <div
-  //         className="window__header"
-  //         onMouseDown={handleMouseDown}
-  //         style={{ cursor: isGrabbing ? 'grabbing' : 'grab' }}
-  //       >
-  //         header
-  //       </div>
-  //       <div className="window__content" onMouseDown={handleMouseDownResize}>
-  //         content
-  //       </div>
-  //     </div>
-  //   );
 }
 
 useMoveElement.defaultProps = {

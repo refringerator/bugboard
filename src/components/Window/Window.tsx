@@ -1,8 +1,3 @@
-import './Window.css';
-import useResizeElement from 'src/hooks/useResizeElement';
-import useMoveElement from 'src/hooks/useMoveElement';
-import { useDispatch } from 'react-redux';
-import { setWindowState } from 'src/redux/windowsSlice';
 import {
   ReactElement,
   cloneElement,
@@ -11,6 +6,12 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { useResizeElement, useMoveElement } from 'src/hooks';
+import { setWindowState } from 'src/redux/windowsSlice';
+
+import './Window.css';
 
 export interface IWindowProps {
   width?: number;

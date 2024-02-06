@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useContextMenu() {
+export const useContextMenu = () => {
   const [cm, setCm] = useState(false);
   const [cmCoords, setCmCoords] = useState({ x: 0, y: 0 });
 
@@ -24,6 +24,6 @@ function useContextMenu() {
   }, []);
 
   return { cm, cmCoords, hideMenu: handleHideContextMenu };
-}
+};
 
 export default useContextMenu;

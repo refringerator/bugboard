@@ -16,7 +16,7 @@ export interface IOpeningWindow extends React.FC {
   params?: Record<string, any>;
 }
 
-function useWindows({ windows }: IUseWindows) {
+export function useWindows({ windows }: IUseWindows) {
   const [wins, setWins] = useState<IWindowProps[]>(windows);
   const [zIndex, setZIndex] = useState(10);
   const winId = useRef(3);

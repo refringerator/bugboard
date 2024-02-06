@@ -7,7 +7,7 @@ interface MainMenuProps {
   minHeight?: number;
 }
 
-function useResizeElement({
+export function useResizeElement({
   minWidth = 100,
   minHeight = 80,
   width = 200,
