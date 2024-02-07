@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
 export type TFormData = { title: string; description: string };
@@ -19,7 +20,7 @@ function IssueForm({
 
   const handleChange = ({
     target: { name, value },
-  }: React.ChangeEvent<HTMLInputElement>) =>
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormData((prevState) => ({ ...prevState, [name]: value }));
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -30,21 +31,31 @@ function IssueForm({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={handleChange}
-          name="title"
-          value={formData.title}
-          disabled={loading}
-        />
-        <input
-          type="text"
+      <form
+        style={{ display: 'flex', flexDirection: 'column' }}
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor="title">
+          Заголовок
+          <input
+            id="title"
+            type="text"
+            onChange={handleChange}
+            name="title"
+            value={formData.title}
+            disabled={loading}
+          />
+        </label>
+        <label htmlFor="description">Описание</label>
+        <textarea
+          rows={5}
+          // type="text"
           name="description"
           onChange={handleChange}
           value={formData.description}
           disabled={loading}
         />
+
         <div>
           <button type="submit" disabled={loading}>
             {loading ? 'Updating...' : 'OK'}
