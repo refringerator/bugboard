@@ -78,6 +78,9 @@ function Window({
         height: curHeight,
         startX: position.x,
         startY: position.y,
+        position: curPosition
+          ? { x: curPosition.x, y: curPosition.y }
+          : undefined,
       })
     );
     onCloseClick(id);

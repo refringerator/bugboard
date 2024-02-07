@@ -8,6 +8,7 @@ type TWindowState = {
   height?: number;
   startX?: number;
   startY?: number;
+  position?: { x: number; y: number };
 };
 
 const initialState: TWindowState[] = [];

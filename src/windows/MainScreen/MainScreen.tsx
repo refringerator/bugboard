@@ -131,13 +131,18 @@ function MainScreen() {
           zIndex={window.zIndex}
           onCloseClick={onWindowClose}
           onWindowFocus={onActive}
-          startX={window.startX ? window.startX : 100 + index * 25}
-          startY={window.startY ? window.startY : 100 + index * 25}
           height={window.height ? window.height : undefined}
           width={window.width ? window.width : undefined}
           minHeight={window?.minHeight}
           minWidth={window?.minWidth}
-          position={window?.position}
+          startX={window.startX ? window.startX : 100 + index * 25}
+          startY={window.startY ? window.startY : 100 + index * 25}
+          position={
+            window?.position || {
+              x: window.startX ? window.startX : 100 + index * 25,
+              y: window.startY ? window.startY : 100 + index * 25,
+            }
+          }
         />
       ))}
 
