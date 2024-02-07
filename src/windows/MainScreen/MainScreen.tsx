@@ -19,6 +19,8 @@ import {
   IssueWindowContent,
   Background,
 } from 'src/windows';
+import { useSelector } from 'react-redux';
+import { selectToken, tokenThunks, useTypedDispatch } from 'src/store';
 
 const startWindows = [
   {
@@ -38,7 +40,8 @@ const startWindows = [
 ];
 
 function MainScreen() {
-  console.log('Main screen render');
+  // console.log('Main screen render');
+  const token = useSelector(selectToken);
   const { cm, cmCoords, hideMenu } = useContextMenu();
   const {
     openWindow,
@@ -50,6 +53,7 @@ function MainScreen() {
     windows,
   } = useWindows({ windows: startWindows });
   const navigate = useNavigate();
+  const dispatch = useTypedDispatch();
 
   const menuElements = [
     {
@@ -83,21 +87,25 @@ function MainScreen() {
         openWindow(issueWindow);
       },
     },
-    {
+  ];
+
+  if (token)
+    menuElements.push({
+      id: '99',
+      title: 'Выход',
+      onClick: () => {
+        console.log('exit');
+        dispatch(tokenThunks.resetTokenThunk());
+      },
+    });
+  else
+    menuElements.push({
       id: '98',
       title: 'Вход',
       onClick: () => {
         navigate('auth');
       },
-    },
-    {
-      id: '99',
-      title: 'Выход',
-      onClick: () => {
-        console.log('exit');
-      },
-    },
-  ];
+    });
 
   return (
     <WindowsContext.Provider
