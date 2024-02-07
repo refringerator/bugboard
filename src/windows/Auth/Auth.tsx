@@ -1,10 +1,8 @@
 const oauthLink = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
 }&scope=public_repo`;
-//
-// &redirect_uri=${import.meta.env.VITE_REDIRECT_URI}
 
-function App() {
+function Auth() {
   const currentUri = window.location.origin + window.location.pathname;
   const encodedUri = btoa(encodeURIComponent(`${currentUri}#oauth-callback`));
 
@@ -21,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Auth;
