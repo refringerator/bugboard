@@ -17,6 +17,7 @@ import {
   SettingsWindowContent,
   IssuesListWindowContent,
   IssueWindowContent,
+  Background,
 } from 'src/windows';
 
 const startWindows = [
@@ -134,6 +135,7 @@ function MainScreen() {
       ))}
 
       <Outlet />
+      <Background color="#7d8a96" />
 
       <WindowsControlPanel
         controlPanelElements={windows.map(({ id, title, icon }) => ({

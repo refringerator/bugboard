@@ -7,18 +7,17 @@ import {
 
 import {
   MainScreen,
-  Background,
   Auth,
   WindowOpener,
   SettingsWindowContent,
 } from 'src/windows';
+
 import OAuthCallback from 'src/routes/OAuthCallback';
 import ErrorPage from 'src/navigation/error-page';
 
 const router = createHashRouter(
   createRoutesFromElements([
     <Route path="/" element={<MainScreen />} errorElement={<ErrorPage />}>
-      <Route index element={<Background color="#7d8a96" />} />
       <Route path="auth" element={<Auth />} />
       <Route
         path="test"

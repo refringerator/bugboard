@@ -57,8 +57,8 @@ const Background = memo(({ color: _color }: Props) => {
       onDrop={(event) => drop(event)}
       onDragOver={(event) => allowDrop(event)}
       style={{
-        // backgroundColor: color || 'fff',
-        backgroundColor: 'none',
+        backgroundColor: _color || 'fff',
+        // backgroundColor: 'none',
         flex: '1 1 auto',
         height: '100%',
       }}
