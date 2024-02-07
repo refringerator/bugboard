@@ -57,7 +57,7 @@ function MainScreen() {
       title: 'Открыть Счетчик',
       onClick: () => openWindow(CounterWindowContent),
     },
-    { id: '2', title: 'Добавить окно', onClick: genNewWindows },
+    { id: '2', title: 'Добавить окно', onClick: () => genNewWindows() },
     {
       id: '3',
       title: 'Настройки',
