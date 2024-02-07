@@ -6,4 +6,4 @@ export { default as IssuesListWindowContent } from './Issues/IssuesListWindowCon
 export { default as SettingsWindowContent } from './SettingsWindowContent';
 export { default as Auth } from './Auth/Auth';
 export { default as WindowOpener } from './WindowOpener';
-export { default as OAuthCallback } from './OAuthCallback';
+export { default as OAuthCallback } from './Auth/OAuthCallback';

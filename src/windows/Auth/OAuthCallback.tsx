@@ -1,7 +1,7 @@
 // TODO: поменять loader на нормальную функцию
 // сейчас страница висит и ждет обработки этого лоадера
 import { useContext, useEffect } from 'react';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { WindowsContext } from 'src/context';
@@ -50,13 +50,32 @@ async function loader({ request }: ILoader) {
   return { accessToken, error };
 }
 
-function MyComponent({ text }: { text: string }) {
+interface IMyWindow {
+  text: string;
+  onWindowClose?: () => void;
+}
+
+function MyComponent({ text, onWindowClose }: IMyWindow) {
+  const navigate = useNavigate();
+
   return (
     <div>
       <p>{text}</p>
+      <button
+        type="button"
+        onClick={() => {
+          navigate('..');
+          if (onWindowClose) onWindowClose();
+        }}
+      >
+        ОК
+      </button>
     </div>
   );
 }
+MyComponent.defaultProps = {
+  onWindowClose: () => {},
+};
 
 function OAuthCallback() {
   const { accessToken, error } = useLoaderData() as {
