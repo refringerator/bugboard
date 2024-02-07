@@ -17,7 +17,10 @@ function SettingsForm({
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      style={{ display: 'flex', flexDirection: 'column' }}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <label htmlFor="isDragAndDropEnable">
         Включить драг и дроп:
         <input
@@ -28,10 +31,12 @@ function SettingsForm({
         />
       </label>
 
-      <button type="submit">Сохранить</button>
-      <button type="button" onClick={onClose}>
-        Отмена
-      </button>
+      <div>
+        <button type="submit">Сохранить</button>
+        <button type="button" onClick={onClose}>
+          Отмена
+        </button>
+      </div>
     </form>
   );
 }
