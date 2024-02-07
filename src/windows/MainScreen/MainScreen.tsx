@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import {
   MainMenu,
@@ -38,6 +38,7 @@ const startWindows = [
 ];
 
 function MainScreen() {
+  console.log('Main screen render');
   const { cm, cmCoords, hideMenu } = useContextMenu();
   const {
     openWindow,
@@ -48,8 +49,7 @@ function MainScreen() {
     changeWindowProps,
     windows,
   } = useWindows({ windows: startWindows });
-
-  console.log('Main screen render');
+  const navigate = useNavigate();
 
   const menuElements = [
     {
@@ -81,6 +81,13 @@ function MainScreen() {
         };
         issueWindow.title = `Создание новой задачи`;
         openWindow(issueWindow);
+      },
+    },
+    {
+      id: '98',
+      title: 'Вход',
+      onClick: () => {
+        navigate('auth');
       },
     },
     {
