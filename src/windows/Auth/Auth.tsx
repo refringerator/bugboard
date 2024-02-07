@@ -2,7 +2,12 @@ const oauthLink = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_CLIENT_ID
 }&scope=public_repo`;
 
-function Auth() {
+interface ISettingsWindow {
+  windowId?: string;
+  onWindowClose?: () => void;
+}
+
+function Auth({ windowId: _winId = '', onWindowClose }: ISettingsWindow) {
   const currentUri = window.location.origin + window.location.pathname;
   const encodedUri = btoa(encodeURIComponent(`${currentUri}#oauth-callback`));
 
@@ -10,13 +15,28 @@ function Auth() {
 
   const onClick = () => {
     console.log('CLICK: сохранить настройки в стор и перейти по ссылке');
+
+    window.location.href = fullOathLink;
   };
 
   return (
-    <a onClick={onClick} href={fullOathLink} className="github-button">
-      Sign in with GitHub
-    </a>
+    <>
+      <button type="button" onClick={onClick}>
+        Подключиться через ГитХаб
+      </button>
+      <button type="button" onClick={onWindowClose}>
+        Отмена
+      </button>
+    </>
   );
 }
+
+Auth.defaultProps = {
+  windowId: '',
+  onWindowClose: () => {},
+};
+
+Auth.windowId = 'AuthWindow';
+Auth.title = 'Вход';
 
 export default Auth;

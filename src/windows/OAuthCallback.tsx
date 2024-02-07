@@ -1,6 +1,10 @@
-import { useEffect } from 'react';
+// TODO: поменять loader на нормальную функцию
+// сейчас страница висит и ждет обработки этого лоадера
+import { useContext, useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
+import { WindowsContext } from 'src/context';
 import { setToken } from 'src/store/authSlice';
 import { useUserMutation } from 'src/service/issues';
 
@@ -46,12 +50,21 @@ async function loader({ request }: ILoader) {
   return { accessToken, error };
 }
 
+function MyComponent({ text }: { text: string }) {
+  return (
+    <div>
+      <p>{text}</p>
+    </div>
+  );
+}
+
 function OAuthCallback() {
   const { accessToken, error } = useLoaderData() as {
     accessToken?: string;
     error?: string;
   };
   const navigation = useNavigation();
+  const { genNewWindows } = useContext(WindowsContext);
   const dispatch = useDispatch();
   const [user] = useUserMutation();
 
@@ -74,31 +87,33 @@ function OAuthCallback() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
-  if (navigation.state === 'loading') {
-    return (
-      <div>
-        <p>Handling OAuth callback...</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (navigation.state === 'loading') {
+      genNewWindows(
+        'callback_handling',
+        'Обработка колбэка',
+        <MyComponent text="Обработка колбэка OAuth" />
+      );
+    } else if (error || !accessToken) {
+      genNewWindows(
+        'callback_error',
+        'Обработка колбэка',
+        <MyComponent text={`Ошибка при получении токена ${error}`} />
+      );
+      // <p>Ошибка при получении токена</p>
+      // {error && <p>{error}</p>}
+    } else {
+      genNewWindows(
+        'callback_end',
+        'Обработка колбэка',
+        <MyComponent
+          text={`Получен токен ${accessToken.substring(0, 10)}**********`}
+        />
+      );
+    }
+  }, [navigation.state, error, accessToken, genNewWindows]);
 
-  if (error || !accessToken) {
-    return (
-      <div>
-        <p>Ошибка при получении токена</p>
-        {error && <p>{error}</p>}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <p>
-        Получен токен
-        {` ${accessToken.substring(0, 10)}**********`}
-      </p>
-    </div>
-  );
+  return null;
 }
 
 export default OAuthCallback;

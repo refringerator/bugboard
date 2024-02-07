@@ -10,17 +10,17 @@ import {
   Auth,
   WindowOpener,
   SettingsWindowContent,
+  OAuthCallback,
 } from 'src/windows';
 
-import OAuthCallback from 'src/routes/OAuthCallback';
 import ErrorPage from 'src/navigation/error-page';
 
 const router = createHashRouter(
   createRoutesFromElements([
     <Route path="/" element={<MainScreen />} errorElement={<ErrorPage />}>
-      <Route path="auth" element={<Auth />} />
+      <Route path="auth" element={<WindowOpener window={Auth} />} />
       <Route
-        path="test"
+        path="config"
         element={<WindowOpener window={SettingsWindowContent} />}
       />
       <Route
