@@ -1,5 +1,10 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  ThunkAction,
+  ThunkDispatch,
+  UnknownAction,
+  configureStore,
+} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import { api } from 'src/service/api';
@@ -36,3 +41,16 @@ export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+// Дополнительные типы, чтобы можно было диспатчить Thunk`и
+// https://github.com/reduxjs/redux-toolkit/issues/587#issuecomment-1049488808
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type TypedDispatch = ThunkDispatch<RootState, any, UnknownAction>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  UnknownAction
+>;
+
+export const useTypedDispatch = () => useDispatch<TypedDispatch>();

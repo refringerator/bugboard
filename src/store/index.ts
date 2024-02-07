@@ -1,5 +1,7 @@
-export { default as authReducer } from './authSlice';
 export { default as counterReducer } from './counterSlice';
+
+export * from './authSlice';
+export { default as authReducer } from './authSlice';
 
 export * from './settingsSlice';
 export { default as settingsReducer } from './settingsSlice';

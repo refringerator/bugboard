@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { issuesApi } from 'src/service/issues';
 import type { User } from 'src/service/issues';
-import type { RootState } from 'src/store';
+import type { RootState, AppThunk } from 'src/store';
 
 const initialState = {
   user: null,
-  token: null,
+  token: localStorage.getItem('token'),
   isAuthenticated: false,
 } as { user: null | User; token: string | null; isAuthenticated: boolean };
 
@@ -16,6 +16,9 @@ const slice = createSlice({
     logout: () => initialState,
     setToken: (state, action) => {
       state.token = action.payload;
+    },
+    resetToken: (state) => {
+      state.token = null;
     },
   },
   extraReducers: (builder) => {
@@ -34,7 +37,26 @@ const slice = createSlice({
   },
 });
 
-export const { logout, setToken } = slice.actions;
+const tokenActions = slice.actions;
+
+const resetTokenThunk = (): AppThunk => (dispatch) => {
+  dispatch(tokenActions.resetToken());
+  localStorage.removeItem('token');
+};
+
+const setTokenThunk =
+  (token: string): AppThunk =>
+  (dispatch) => {
+    dispatch(tokenActions.setToken(token));
+    localStorage.setItem('token', token);
+  };
+
+export const tokenThunks = {
+  resetTokenThunk,
+  setTokenThunk,
+};
+
+export const { logout } = slice.actions;
 export default slice.reducer;
 
 export const selectIsAuthenticated = (state: RootState) =>

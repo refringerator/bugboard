@@ -2,11 +2,10 @@
 // сейчас страница висит и ждет обработки этого лоадера
 import { useContext, useEffect } from 'react';
 import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { WindowsContext } from 'src/context';
-import { setToken } from 'src/store/authSlice';
 import { useUserMutation } from 'src/service/issues';
+import { useTypedDispatch, tokenThunks } from 'src/store';
 
 interface ILoader {
   request: Request;
@@ -84,14 +83,14 @@ function OAuthCallback() {
   };
   const navigation = useNavigation();
   const { genNewWindows } = useContext(WindowsContext);
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const [user] = useUserMutation();
 
   useEffect(() => {
     const fetchData = () => {
       if (accessToken) {
         console.log('Устанавливаем токен');
-        dispatch(setToken(accessToken));
+        dispatch(tokenThunks.setTokenThunk(accessToken));
         user({});
       } else {
         console.log('Еще нет токена');
@@ -119,7 +118,6 @@ function OAuthCallback() {
         'Обработка колбэка',
         <MyComponent text={`Ошибка при получении токена ${error}`} />
       );
-      // <p>Ошибка при получении токена</p>
       // {error && <p>{error}</p>}
     } else {
       genNewWindows(
