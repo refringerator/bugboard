@@ -37,7 +37,7 @@ function IssuesListWindowContent() {
 
 IssuesListWindowContent.windowId = 'IssuesListWindow';
 IssuesListWindowContent.title = 'Список задач';
-IssuesListWindowContent.minHeight = 350;
+IssuesListWindowContent.minHeight = 355;
 IssuesListWindowContent.minWidth = 630;
 
 export default IssuesListWindowContent;

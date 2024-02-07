@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 
 import { Issue } from 'src/service/issues';
@@ -71,23 +71,41 @@ function IssuesTable({ data, onDoubleRowClick = () => {} }: IIssueTable) {
   };
 
   return (
-    <Table
-      size="small"
-      columns={columns}
-      dataSource={data}
-      onChange={onChange}
-      rowKey="id"
-      onRow={(record, rowIndex) => {
-        return {
-          // onClick: (event) => {}, // click row
-          onDoubleClick: (event) =>
-            handleRowDoubleClick(record, rowIndex, event), // double click row
-          // onContextMenu: (event) => {}, // right button click row
-          // onMouseEnter: (event) => {}, // mouse enter row
-          // onMouseLeave: (event) => {}, // mouse leave row
-        };
+    <ConfigProvider
+      theme={{
+        token: {
+          // Seed Token
+          colorPrimary: '#17724c',
+          borderRadius: 2,
+
+          // Alias Token
+          colorBgContainer: '#5f9ea0',
+        },
+
+        components: {
+          Table: { borderColor: '#000', headerSplitColor: '#000' },
+        },
       }}
-    />
+    >
+      <Table
+        size="small"
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+        rowKey="id"
+        onRow={(record, rowIndex) => {
+          return {
+            // onClick: (event) => {}, // click row
+            onDoubleClick: (event) =>
+              handleRowDoubleClick(record, rowIndex, event), // double click row
+            // onContextMenu: (event) => {}, // right button click row
+            // onMouseEnter: (event) => {}, // mouse enter row
+            // onMouseLeave: (event) => {}, // mouse leave row
+          };
+        }}
+        pagination={{ pageSize: 6 }}
+      />
+    </ConfigProvider>
   );
 }
 
